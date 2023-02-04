@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-function getResults(league,season){
+ function getResults(league,season){
   let config = {
     method: 'GET',
     url: 'https://v3.football.api-sports.io/fixtures?league='+league+'&season='+season,
