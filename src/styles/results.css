@@ -2,3 +2,19 @@
     display: flex;
     justify-content: center;
 }
+.fixture-date{
+    background-color: darkblue;
+    color:white;
+}
+.fixture{
+    margin-left: 20px;
+}
+.fixture span{
+    border: 1px solid black;
+    margin:2px;
+    padding: 2px;
+}
+.fixture img{
+    width:20px;
+    height: 20px;
+}

@@ -1,6 +1,7 @@
 import React,{ memo,ReactDOM } from 'react'
 import { useState,useEffect,useRef } from 'react'
 import getResults from '../api/getResults'
+import results from '../styles/results.css'
 
 function Results(props){
     const [results,setResults]=useState([])
@@ -14,7 +15,7 @@ function Results(props){
     })},[league,season])
             
     const groupedResults=results.reduce((group,elem)=>{            
-        const date= new Date(elem.fixture.date.toString()). toDateString()  
+        const date= new Date(elem.fixture.date).toDateString()  
         if(group[date]==null) group[date]=[]
         group[date].push(elem)
         return group
@@ -24,18 +25,30 @@ function Results(props){
     
     return(
         <div>
-            <div>
-
-            </div>
-            <div>
-                <img/>
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
-                <img/>
-                <span></span>
-            </div>            
+            {               
+               Object.keys(groupedResults).map((elem,index)=>{
+                              
+                return(
+                    <div>                
+                        <div key={index} className="fixture-date"> {elem} </div>                    
+                        {console.log('index: ',index)}
+                        {groupedResults[elem].map((fixture)=>{
+                            return(
+                            <div className="fixture">
+                                <img src={fixture.teams.home.logo}></img>
+                                <span>{fixture.teams.home.name}</span>
+                                <span>{fixture.goals.home}</span>                                
+                                <span>{fixture.goals.away}</span>
+                                <span>{fixture.teams.away.name}</span>
+                                <img src={fixture.teams.away.logo}></img>
+                            </div> 
+                            
+                            )
+                        })}                    
+                        </div>                                 
+                    )               
+                })
+            }                                             
         </div>
     )
 }
