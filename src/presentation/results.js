@@ -26,7 +26,7 @@ function Results(props){
     return(
         <div>
             {               
-               Object.keys(groupedResults).map((elem,index)=>{
+               Object.keys(groupedResults).sort((a,b)=>Date.parse(a)-Date.parse(b)).map((elem,index)=>{
                               
                 return(
                     <div>                

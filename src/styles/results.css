@@ -1,6 +1,5 @@
 .fixture-div{
-    display: flex;
-    justify-content: center;
+   text-align: center;
 }
 .fixture-date{
     background-color: darkblue;
@@ -8,6 +7,8 @@
 }
 .fixture{
     margin-left: 20px;
+    /* display: flex;
+    justify-content: space-between; */
 }
 .fixture span{
     border: 1px solid black;
@@ -15,6 +16,6 @@
     padding: 2px;
 }
 .fixture img{
-    width:20px;
-    height: 20px;
+    width:40px;
+    height: 40px;
 }
