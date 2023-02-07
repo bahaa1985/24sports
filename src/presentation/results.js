@@ -1,17 +1,20 @@
-import React,{ memo,ReactDOM } from 'react'
+import React,{ ReactDOM } from 'react'
 import { useState,useEffect,useRef } from 'react'
 import getResults from '../api/getResults'
-import results from '../styles/results.css'
+import  '../styles/results.css'
+import Events from './events'
 
 function Results(props){
     const [results,setResults]=useState([])
+    const [fixture,setFixture]=useState(0)
+    const [teams,setTeams]=useState([])
     // const effect=useRef(false)
     const league=props.league
     const season=props.season
           
     useEffect(()=>{                                                  
-        getResults(league,season).then((response)=>{                                 
-            setResults( response.data.response )
+        getResults(league,season).then((result)=>{                                 
+            setResults( result.data.response )
     })},[league,season])
             
     const groupedResults=results.reduce((group,elem)=>{            
@@ -30,21 +33,21 @@ function Results(props){
                               
                 return(
                     <div>                
-                        <div key={index} className="fixture-date"> {elem} </div>                    
-                        {console.log('index: ',index)}
-                        {groupedResults[elem].map((fixture)=>{
+                        <div key={index} className="fixture-date"> {elem} </div>                                     
+                        {groupedResults[elem].map((elem,index)=>{
                             return(
-                            <div className="fixture">
-                                <img src={fixture.teams.home.logo}></img>
-                                <span>{fixture.teams.home.name}</span>
-                                <span>{fixture.goals.home}</span>                                
-                                <span>{fixture.goals.away}</span>
-                                <span>{fixture.teams.away.name}</span>
-                                <img src={fixture.teams.away.logo}></img>
+                            <div key={index} className="fixture" onClick={()=>{setFixture(elem.fixture.id);setTeams([elem.teams.home.id,elem.teams.away.id])}}  >
+                                <img src={elem.teams.home.logo}></img>
+                                <span>{elem.teams.home.name}</span>
+                                <span>{elem.goals.home}</span>                                
+                                <span>{elem.goals.away}</span>
+                                <span>{elem.teams.away.name}</span>
+                                <img src={elem.teams.away.logo}></img>
                             </div> 
                             
                             )
-                        })}                    
+                        })} 
+                        <Events fixture={fixture} teams={teams}/>
                         </div>                                 
                     )               
                 })
