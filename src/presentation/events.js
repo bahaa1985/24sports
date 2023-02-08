@@ -12,12 +12,12 @@ function Events(props){
     useEffect(()=>{
         getEvents(fixture).then((result)=>{
            setEvents( result.data.response )
-        })
+        })        
     },[fixture,teams])
-    console.log('events: ',events)
+    //console.log('events: ',events)
     return(
         <div>
-            {console.log(...teams)}
+            {teams[0]} &nbsp {teams[1]}
         </div>
     )
 }

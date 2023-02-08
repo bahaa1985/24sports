@@ -36,22 +36,28 @@ function Results(props){
                         <div key={index} className="fixture-date"> {elem} </div>                                     
                         {groupedResults[elem].map((elem,index)=>{
                             return(
-                            <div key={index} className="fixture" onClick={()=>{setFixture(elem.fixture.id);setTeams([elem.teams.home.id,elem.teams.away.id])}}  >
-                                <img src={elem.teams.home.logo}></img>
-                                <span>{elem.teams.home.name}</span>
-                                <span>{elem.goals.home}</span>                                
-                                <span>{elem.goals.away}</span>
-                                <span>{elem.teams.away.name}</span>
-                                <img src={elem.teams.away.logo}></img>
-                            </div> 
+                                <div>
+                                    <div key={index} className="fixture" >
+                                        <img src={elem.teams.home.logo}></img>
+                                        <span>{elem.teams.home.name}</span>
+                                        <span>{elem.goals.home}</span>                                
+                                        <span>{elem.goals.away}</span>
+                                        <span>{elem.teams.away.name}</span>
+                                        <img src={elem.teams.away.logo}></img>
+                                        <button  onClick={()=>{setFixture(elem.fixture.id);
+                                                 setTeams([elem.teams.home.id,elem.teams.away.id])}} >Details</button>
+                                    </div> 
+                                    
+                                </div>
                             
                             )
                         })} 
-                        <Events fixture={fixture} teams={teams}/>
+                        
                         </div>                                 
                     )               
                 })
-            }                                             
+            }
+            <Events fixture={fixture} teams={teams}/>                                             
         </div>
     )
 }
