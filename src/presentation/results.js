@@ -10,10 +10,8 @@ function Results(props){
     const [results,setResults]=useState([])
     const [fixture,setFixture]=useState(0)
     const [teams,setTeams]=useState([])
-    const [clicked,setClicked]=useState(false)
-    const [indexx,setIndex]=useState(0)
-    const fixtureRef=useRef(null)
-    // const effect=useRef(false)
+    const [clickedFixture,setClickedFixture]=useState(0)
+   
     const league=props.league
     const season=props.season
           
@@ -28,13 +26,7 @@ function Results(props){
         group[date].push(elem)
         return group
     },{})
-
-    // console.log('groupedResults: ',groupedResults)
-    
-    useEffect(()=>{
-        const divv=document.getElementsByClassName('.fixture')[indexx]
-        // console.log('divv:',divv)
-    },[indexx])  
+    console.log(groupedResults)
 
     return(
         <div>
@@ -47,20 +39,17 @@ function Results(props){
                         {groupedResults[elem].map((elem,fixture_index)=>{
                             return(
                                 <div>
-                                    <div key={fixture_index} className="fixture" ref={fixtureRef} 
-                                        onClick={()=>{                                           
-                                            setIndex(index)
-                                        }}
-                                             >
+                                    <div key={fixture_index} className="fixture" 
+                                        onClick={()=>{setClickedFixture(elem.fixture.id);setTeams([elem.teams.home.id,elem.teams.away.id])}}>
                                         <img src={elem.teams.home.logo}></img>
                                         <span>{elem.teams.home.name}</span>
                                         <span>{elem.goals.home}</span>                                
                                         <span>{elem.goals.away}</span>
                                         <span>{elem.teams.away.name}</span>
-                                        <img src={elem.teams.away.logo}></img>
-                                        <button>{index}</button>
+                                        <img src={elem.teams.away.logo}></img> 
+                                        {clickedFixture===elem.fixture.id ? <Events fixture={elem.fixture.id} teams={teams}/> : null}                                      
                                     </div> 
-                                    {clicked ? <Events fixture={fixture} teams={teams}/> : null}
+                                   
                                 </div>
 
                             )

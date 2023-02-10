@@ -7,13 +7,15 @@
 }
 .fixture{
     margin-left: 20px;
+    cursor:pointer;
     /* display: flex;
     justify-content: space-between; */
 }
 .fixture span{
     border: 1px solid black;
-    margin:2px;
+    margin-left:2px;
     padding: 2px;
+    box-sizing: border-box;
 }
 .fixture img{
     width:40px;

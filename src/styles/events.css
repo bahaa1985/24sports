@@ -1,0 +1,25 @@
+.events{
+    display: flex;
+    justify-content:center;
+    height:auto;
+    
+}
+.events-home{
+    /* position:relative;
+    top:0;
+    left:0; */
+    height: auto;
+    border:1px solid black;
+    box-sizing: border-box;
+}
+.events-away{
+    /* position:relative;
+    left:50%;
+    top:0; */
+    height: auto;
+    border:1px solid black;
+    box-sizing: border-box;
+}
+span{
+    border: 1px solid black;
+}
