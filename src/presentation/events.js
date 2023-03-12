@@ -21,15 +21,14 @@ function Events(props){
     const eventsAway = events.filter((event)=>event.team.id===teams[1])
     return(
         <div className='events'>
-            {
+            {/* {
                 <div className="events-home"> 
                     {
                     eventsHome.map((event,index)=>{
-                        // {index>1 ? setHomeMargin(event.time.elapsed-eventsHome[index-1].time.elapsed):setHomeMargin(event.time.elapsed)}
+                        
                         return(
-                            <div style={{marginTop:index>0 ?(event.time.elapsed-eventsHome[index-1].time.elapsed)*2:event.time.elapsed*2}}>
+                            <div style={{marginTop:index>0 ?(event.time.elapsed-eventsHome[index-1].time.elapsed)*3:event.time.elapsed*3}}>
                                 <span>{event.time.elapsed}</span>
-                                {/* <span style={{position:'relative','top':event.time.elapsed}}>{event.team.name}</span> */}
                                 <span >{event.player.name}</span>
                                 <span >{event.type}</span>
                             </div>                          
@@ -42,11 +41,10 @@ function Events(props){
                 <div className="events-away">
                 {
                     eventsAway.map((event,index)=>{  
-                        // {index>1 ? setAwayMargin(event.time.elapsed-eventsAway[index-1].time.elapsed):setAwayMargin(event.time.elapsed)}                  
+                       
                     return(
-                        <div style={{marginTop:index>0 ?(event.time.elapsed-eventsAway[index-1].time.elapsed)*2:event.time.elapsed*2}}>                         
-                            <span >{event.time.elapsed}</span>
-                            {/* <span style={{position:'relative','top':event.time.elapsed}}>{event.team.name}</span> */}
+                        <div style={{marginTop:index>0 ?(event.time.elapsed-eventsAway[index-1].time.elapsed)*3:event.time.elapsed*3}}>                         
+                            <span >{event.time.elapsed}</span>                       
                             <span >{event.player.name}</span>
                             <span >{event.type}</span>
                         </div>
@@ -55,6 +53,30 @@ function Events(props){
                 }
                 </div>
                 
+            } */}
+            {
+                events.map((event,index)=>{
+                    return(
+                        <Fragment>
+                            {
+                               event.team.id==teams[0]? <div class="event" style={{marginLeft:0,marginTop:'20px',marginBottom:'20px',textAlign:'right',paddingRight:'2.5%'}}>                                   
+                                    <span >{event.type}</span>
+                                    <span >{event.player.name}</span>
+                                    {event.assist.name!=null?<span>{event.assist.name}</span>:null}                                   
+                                    <span>{event.time.elapsed}</span>
+                               </div> 
+                               :<div class="event" style={{marginLeft:'50%',marginTop:'20px',marginBottom:'20px',textAlign:'left',paddingLeft:'2.5%'}}>
+                                    <span >{event.time.elapsed}</span>                       
+                                    <span >{event.player.name}</span>
+                                    {event.assist.name!=null?<span>{event.assist.name}</span>:null}
+                                    <span >{event.type}</span>
+                               </div>
+                                
+                            }
+                            
+                        </Fragment>
+                    )
+                })
             }
         </div>
     )

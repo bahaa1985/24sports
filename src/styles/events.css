@@ -1,24 +1,28 @@
 .events{
-    display: flex;
-    justify-content:center;
+    /* display: flex;
+    justify-content:center; */
     height:auto;
+    width:80%;
+    margin:auto;
+}
+.event{
+    width:55%;
+    height: auto;
     
 }
 .events-home{
-    /* position:relative;
-    top:0;
-    left:0; */
+   
     height: auto;
     border:1px solid black;
     box-sizing: border-box;
+    width:40%;
 }
 .events-away{
-    /* position:relative;
-    left:50%;
-    top:0; */
+   
     height: auto;
     border:1px solid black;
     box-sizing: border-box;
+    width:40%;
 }
 span{
     border: 1px solid black;
