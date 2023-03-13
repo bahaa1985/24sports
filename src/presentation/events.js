@@ -7,6 +7,7 @@ function Events(props){
     
     const fixture=props.fixture
     const teams=props.teams
+    const HOME_TEAM=teams[0],AWAY_TEAM=teams[1];
 
     const [events,setEvents]=useState([])
     const [homeMargin,setHomeMargin]=useState(0)
@@ -17,66 +18,93 @@ function Events(props){
            setEvents( result.data.response )
         })        
     },[fixture,teams])
-    const eventsHome = events.filter((event)=>event.team.id===teams[0])
-    const eventsAway = events.filter((event)=>event.team.id===teams[1])
+    // const eventsHome = events.filter((event)=>event.team.id===teams[0])
+    // const eventsAway = events.filter((event)=>event.team.id===teams[1])
+
+    const GROUPED_EVENTS=events.reduce((group,elem)=>{
+        const TIME=elem.time.elapsed;
+        if(group[TIME]==null) group[TIME]=[];
+        group[TIME].push(elem);
+        return group;
+    },[])
+    console.log('grouped events: ',GROUPED_EVENTS)
     return(
+      
         <div className='events'>
-            {/* {
-                <div className="events-home"> 
-                    {
-                    eventsHome.map((event,index)=>{
-                        
-                        return(
-                            <div style={{marginTop:index>0 ?(event.time.elapsed-eventsHome[index-1].time.elapsed)*3:event.time.elapsed*3}}>
-                                <span>{event.time.elapsed}</span>
-                                <span >{event.player.name}</span>
-                                <span >{event.type}</span>
-                            </div>                          
-                        )
-                    })
-                    }
-                </div>
-            }
+            
             {
-                <div className="events-away">
-                {
-                    eventsAway.map((event,index)=>{  
-                       
+                GROUPED_EVENTS.map((event,index)=>{
+                    // events.forEach(event => {
+                    //     if(event.team.id==HOME_TEAM){
+                            
+                    //     }
+                    // });
                     return(
-                        <div style={{marginTop:index>0 ?(event.time.elapsed-eventsAway[index-1].time.elapsed)*3:event.time.elapsed*3}}>                         
-                            <span >{event.time.elapsed}</span>                       
-                            <span >{event.player.name}</span>
-                            <span >{event.type}</span>
-                        </div>
-                        )
-                    })
-                }
-                </div>
-                
-            } */}
-            {
-                events.map((event,index)=>{
-                    return(
-                        <Fragment>
+                        <Fragment key={index}>
                             {
-                               event.team.id==teams[0]? <div class="event" style={{marginLeft:0,marginTop:'20px',marginBottom:'20px',textAlign:'right',paddingRight:'2.5%'}}>                                   
-                                    <span >{event.type}</span>
-                                    <span >{event.player.name}</span>
-                                    {event.assist.name!=null?<span>{event.assist.name}</span>:null}                                   
-                                    <span>{event.time.elapsed}</span>
-                               </div> 
-                               :<div class="event" style={{marginLeft:'50%',marginTop:'20px',marginBottom:'20px',textAlign:'left',paddingLeft:'2.5%'}}>
-                                    <span >{event.time.elapsed}</span>                       
-                                    <span >{event.player.name}</span>
-                                    {event.assist.name!=null?<span>{event.assist.name}</span>:null}
-                                    <span >{event.type}</span>
+                               <div>                                
+                                {event.team.id==HOME_TEAM?
+                                    <Fragment>
+                                        <span>{event.type}</span>
+                                        <Fragment style={{display:'block'}}>
+                                            <span>{event.player.name}</span>
+                                            <span>{event.assist.name}</span>
+                                        </Fragment>
+                                        <span>{event.time.elapsed}</span>
+                                        <Fragment style={{display:'block'}}>
+                                            <span>{event.player.name}</span>
+                                            <span>{event.assist.name}</span>
+                                        </Fragment>
+                                        <span>{event.type}</span>
+                                    </Fragment>:
+                                    <Fragment>
+                                        <span></span>
+                                        <span></span>
+                                    </Fragment>
+                                }
+                               
+                                {event.team.id==AWAY_TEAM?
+                                    <Fragment>
+                                        <span>{event.type}</span>
+                                        <Fragment style={{display:'block'}}>
+                                            <span>{event.player.name}</span>
+                                            <span>{event.assist.name}</span>
+                                        </Fragment>
+                                        
+                                    </Fragment>:
+                                    <Fragment>
+                                        <span></span>
+                                        <span></span>
+                                    </Fragment>
+                                }
                                </div>
-                                
                             }
                             
                         </Fragment>
                     )
                 })
+                // events.map((event,index)=>{
+                //     return(
+                //         <Fragment>
+                //             {
+                //                event.team.id==teams[0]? <div class="event" style={{marginLeft:0,marginTop:'20px',marginBottom:'20px',textAlign:'right',paddingRight:'2.5%'}}>                                   
+                //                     <span >{event.type}</span>
+                //                     <span >{event.player.name}</span>
+                //                     {event.assist.name!=null?<span>{event.assist.name}</span>:null}                                   
+                //                     <span>{event.time.elapsed}</span>
+                //                </div> 
+                //                :<div class="event" style={{marginLeft:'50%',marginTop:'20px',marginBottom:'20px',textAlign:'left',paddingLeft:'2.5%'}}>
+                //                     <span >{event.time.elapsed}</span>                       
+                //                     <span >{event.player.name}</span>
+                //                     {event.assist.name!=null?<span>{event.assist.name}</span>:null}
+                //                     <span >{event.type}</span>
+                //                </div>
+                                
+                //             }
+                            
+                //         </Fragment>
+                //     )
+                // })
             }
         </div>
     )
