@@ -34,28 +34,24 @@ function Events(props){
             
             {
                 GROUPED_EVENTS.map((event,index)=>{
-                    // events.forEach(event => {
-                    //     if(event.team.id==HOME_TEAM){
-                            
-                    //     }
-                    // });
-                    return(
-                        <Fragment key={index}>
+                    if(event.length==1){
+                        return(
+                            <Fragment key={index}>
                             {
                                <div>                                
-                                {event.team.id==HOME_TEAM?
+                                {event[0].team.id==HOME_TEAM?
                                     <Fragment>
-                                        <span>{event.type}</span>
+                                        <span>{event[0].type}</span>
                                         <Fragment style={{display:'block'}}>
-                                            <span>{event.player.name}</span>
-                                            <span>{event.assist.name}</span>
+                                            <span>{event[0].player.name}</span>
+                                            <span>{event[0].assist.name}</span>
                                         </Fragment>
-                                        <span>{event.time.elapsed}</span>
+                                        <span>{event[0].time.elapsed}</span>
                                         <Fragment style={{display:'block'}}>
-                                            <span>{event.player.name}</span>
-                                            <span>{event.assist.name}</span>
+                                            <span>{event[0].player.name}</span>
+                                            <span>{event[0].assist.name}</span>
                                         </Fragment>
-                                        <span>{event.type}</span>
+                                        <span>{event[0].type}</span>
                                     </Fragment>:
                                     <Fragment>
                                         <span></span>
@@ -64,24 +60,27 @@ function Events(props){
                                 }
                                
                                 {event.team.id==AWAY_TEAM?
+                                   
                                     <Fragment>
-                                        <span>{event.type}</span>
-                                        <Fragment style={{display:'block'}}>
-                                            <span>{event.player.name}</span>
-                                            <span>{event.assist.name}</span>
-                                        </Fragment>
-                                        
+                                        <span></span>
+                                        <span></span>
                                     </Fragment>:
-                                    <Fragment>
-                                        <span></span>
-                                        <span></span>
-                                    </Fragment>
+                                     <Fragment>
+                                     <span>{event[0].type}</span>
+                                     <Fragment style={{display:'block'}}>
+                                         <span>{event[0].player.name}</span>
+                                         <span>{event[0].assist.name}</span>
+                                     </Fragment>
+                                     
+                                 </Fragment>
                                 }
                                </div>
                             }
                             
-                        </Fragment>
-                    )
+                        </Fragment> 
+                        )
+                    }
+                    
                 })
                 // events.map((event,index)=>{
                 //     return(
