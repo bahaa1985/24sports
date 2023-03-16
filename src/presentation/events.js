@@ -38,41 +38,52 @@ function Events(props){
                         return(
                             <Fragment key={index}>
                             {
-                               <div>                                
-                                {event[0].team.id==HOME_TEAM?
+                               <div className="event">                                
+                                {event[0].team.id===HOME_TEAM?
                                     <Fragment>
-                                        <span>{event[0].type}</span>
-                                        <Fragment style={{display:'block'}}>
-                                            <span>{event[0].player.name}</span>
-                                            <span>{event[0].assist.name}</span>
-                                        </Fragment>
-                                        <span>{event[0].time.elapsed}</span>
-                                        <Fragment style={{display:'block'}}>
-                                            <span>{event[0].player.name}</span>
-                                            <span>{event[0].assist.name}</span>
-                                        </Fragment>
-                                        <span>{event[0].type}</span>
-                                    </Fragment>:
-                                    <Fragment>
-                                        <span></span>
-                                        <span></span>
-                                    </Fragment>
+                                        <div className="div-details">
+                                            <span className="span-type">{event[0].type}</span>
+                                            <div className="div-players">
+                                                <label className="label-palyer">{event[0].player.name}</label><br></br>
+                                                <label className="label-assist">{event[0].assist.name}</label>
+                                            </div>
+                                        </div>                                       
+                                        <span className="span-time">{event[0].time.elapsed}</span>
+                                        <div className="div-empty">
+                                            <label className="span-empty"></label>                                            
+                                        </div>
+                                      
+                                    </Fragment>:null
+                                    // :
+                                    // <Fragment>
+                                    //      <Fragment>
+                                    //         <span className="span-empty"></span>                                            
+                                    //     </Fragment>
+                                    //     <span className="span-time">{event[0].time.elapsed}</span>
+                                    //     <Fragment classsName="fragment-players">
+                                    //         <span className="span-player">{event[0].player.name}</span>
+                                    //         <span className="span-assist">{event[0].assist.name}</span>
+                                    //     </Fragment>
+                                    //     <span className="span-type">{event[0].type}</span>
+                                    // </Fragment>
                                 }
                                
-                                {event.team.id==AWAY_TEAM?
-                                   
+                                {event[0].team.id===AWAY_TEAM?
+                                                                       
                                     <Fragment>
-                                        <span></span>
-                                        <span></span>
-                                    </Fragment>:
-                                     <Fragment>
-                                     <span>{event[0].type}</span>
-                                     <Fragment style={{display:'block'}}>
-                                         <span>{event[0].player.name}</span>
-                                         <span>{event[0].assist.name}</span>
-                                     </Fragment>
-                                     
-                                 </Fragment>
+                                        <div className="div-empty">
+                                            <label className="span-empty"></label>                                       
+                                        </div>
+                                        <span className="span-time">{event[0].time.elapsed}</span>
+                                        <div className="div-details">
+                                            <div className="div-players">
+                                                <label className="label-player">{event[0].player.name}</label><br></br>
+                                                <label className="label-assist">{event[0].assist.name}</label>                                            
+                                            </div>                                     
+                                            <span className="span-type">{event[0].type}</span>
+                                        </div>                                       
+                                        
+                                 </Fragment>:null
                                 }
                                </div>
                             }

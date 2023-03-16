@@ -6,9 +6,12 @@
     margin:auto;
 }
 .event{
-    width:55%;
+    display: flex;
+    justify-content:center;
+    width:100%;
     height: auto;
-    
+    margin:10px auto;
+    text-align: center;
 }
 .events-home{
    
@@ -26,4 +29,32 @@
 }
 span{
     border: 1px solid black;
+}
+.div-details{
+    height: auto;
+    display: flex;
+    width:45%;
+}
+.span-type{
+width:20%;
+}
+.div-players{
+width:50%;
+height: auto;
+display: block;
+}
+.label-player{
+width:100%;
+}
+.label-assist{
+width:100%;
+}
+.span-time{
+width:10%;
+}
+.div-empty{
+    width:45%;
+}
+.label-empty{
+width:100%;
 }
