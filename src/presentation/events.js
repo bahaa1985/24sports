@@ -33,7 +33,7 @@ function Events(props){
         <div className='events'>
             
             {
-                GROUPED_EVENTS.map((event,index)=>{
+                GROUPED_EVENTS.map((event,index)=>{                    
                     if(event.length==1){
                         return(
                             <Fragment key={index}>
@@ -41,31 +41,20 @@ function Events(props){
                                <div className="event">                                
                                 {event[0].team.id===HOME_TEAM?
                                     <Fragment>
-                                        <div className="div-details">
+                                        <div className="div-details" style={{justifyContent:'flex-end'}}>
                                             <span className="span-type">{event[0].type}</span>
-                                            <div className="div-players">
+                                            <div className="div-players" style={{textAlign:'right'}}>
                                                 <label className="label-palyer">{event[0].player.name}</label><br></br>
                                                 <label className="label-assist">{event[0].assist.name}</label>
                                             </div>
                                         </div>                                       
-                                        <span className="span-time">{event[0].time.elapsed}</span>
+                                        <span className="span-time">{index}</span>
                                         <div className="div-empty">
                                             <label className="span-empty"></label>                                            
                                         </div>
                                       
                                     </Fragment>:null
-                                    // :
-                                    // <Fragment>
-                                    //      <Fragment>
-                                    //         <span className="span-empty"></span>                                            
-                                    //     </Fragment>
-                                    //     <span className="span-time">{event[0].time.elapsed}</span>
-                                    //     <Fragment classsName="fragment-players">
-                                    //         <span className="span-player">{event[0].player.name}</span>
-                                    //         <span className="span-assist">{event[0].assist.name}</span>
-                                    //     </Fragment>
-                                    //     <span className="span-type">{event[0].type}</span>
-                                    // </Fragment>
+                                    
                                 }
                                
                                 {event[0].team.id===AWAY_TEAM?
@@ -74,9 +63,9 @@ function Events(props){
                                         <div className="div-empty">
                                             <label className="span-empty"></label>                                       
                                         </div>
-                                        <span className="span-time">{event[0].time.elapsed}</span>
-                                        <div className="div-details">
-                                            <div className="div-players">
+                                        <span className="span-time">{index}</span>
+                                        <div className="div-details" style={{justifyContent:'flex-start'}}>
+                                            <div className="div-players" style={{textAlign:'left'}}>
                                                 <label className="label-player">{event[0].player.name}</label><br></br>
                                                 <label className="label-assist">{event[0].assist.name}</label>                                            
                                             </div>                                     
@@ -86,11 +75,137 @@ function Events(props){
                                  </Fragment>:null
                                 }
                                </div>
-                            }
-                            
+                            }                            
                         </Fragment> 
                         )
                     }
+                    // else{
+                    //     let homeEvent=event.filter((elem)=>elem.team.id==HOME_TEAM)
+                    //     let awayEvent=event.filter((elem)=>elem.team.id==AWAY_TEAM)
+                    //     console.log('home event',homeEvent)  
+                    //     console.log('away event',awayEvent)                                          
+                    //     return(                            
+                    //             <div key={index} className="event"> 
+                                
+                    //                 {
+                    //                     homeEvent.map((event)=>{
+                    //                         return(
+                    //                             <Fragment>
+                    //                                 <div className="div-details" style={{justifyContent:'flex-end'}}>
+                    //                                     <span className="span-type">{event.type}</span>
+                    //                                     <div className="div-players" style={{textAlign:'right'}}>
+                    //                                         <label className="label-palyer">{event.player.name}</label><br></br>
+                    //                                         <label className="label-assist">{event.assist.name}</label>
+                    //                                     </div>
+                    //                                 </div>                                       
+                    //                                 <span className="span-time">{event.time.elapsed !=null? homeEvent.time.elapsed :awayEvent.time.elapse }</span>                                    
+                    //                                 <div className="div-empty">
+                    //                                     <label className="span-empty"></label>                                       
+                    //                                 </div>
+                    //                             </Fragment>
+                    //                         )
+                    //                     })
+                    //                 }
+
+                    //                 {
+                    //                     awayEvent.map((event)=>{
+                    //                         return(
+                    //                             <Fragment>
+                    //                                 <div className="div-empty">
+                    //                                 <label className="span-empty"></label>                                       
+                    //                                 </div>
+                    //                                 <div className="div-details" style={{justifyContent:'flex-start'}}>
+                    //                                 <div className="div-players" style={{textAlign:'left'}}>
+                    //                                     <label className="label-palyer">{event.player.name}</label><br></br>
+                    //                                     <label className="label-assist">{event.assist.name}</label>
+                    //                                 </div>
+                    //                                 <span className="span-type">{event.type}</span>                                          
+                    //                                 </div> 
+                    //                             </Fragment>
+                    //                         )
+                    //                     })
+                    //                 }
+                    //                  {homeEvent.length>0  && awayEvent === 0 ?
+                                                                                                               
+                    //                     <Fragment>
+                    //                         <div className="div-details" style={{justifyContent:'flex-end'}}>
+                    //                             <span className="span-type">{homeEvent.type}</span>
+                    //                             <div className="div-players" style={{textAlign:'right'}}>
+                    //                                 <label className="label-palyer">{homeEvent.player.name}</label><br></br>
+                    //                                 <label className="label-assist">{homeEvent.assist.name}</label>
+                    //                             </div>
+                    //                         </div>                                       
+                    //                         <span className="span-time">{homeEvent.time.elapsed !=null? homeEvent.time.elapsed :awayEvent.time.elapse }</span>                                    
+                    //                         <div className="div-empty">
+                    //                             <label className="span-empty"></label>                                       
+                    //                         </div>
+                    //                     </Fragment>:
+                                    
+                                    
+                    //                     homeEvent.length===0 && awayEvent.length>0 ?
+                    //                     awayEvent.map((event)=>{
+                    //                         return(
+                    //                             <Fragment>
+                    //                                 <div className="div-empty">
+                    //                                 <label className="span-empty"></label>                                       
+                    //                                 </div>
+                    //                                 <div className="div-details" style={{justifyContent:'flex-start'}}>
+                    //                                 <div className="div-players" style={{textAlign:'left'}}>
+                    //                                     <label className="label-palyer">{event.player.name}</label><br></br>
+                    //                                     <label className="label-assist">{event.assist.name}</label>
+                    //                                 </div>
+                    //                                 <span className="span-type">{event.type}</span>                                          
+                    //                                 </div> 
+                    //                             </Fragment>
+                    //                         )
+                    //                     })
+                                            
+                    //                     :
+                                    
+                                    
+                    //                     homeEvent.length>0 && awayEvent.length>0 ?
+                    //                     homeEvent.map((event)=>{
+                    //                         <Fragment>
+                    //                             <div className="div-details" style={{justifyContent:'flex-end'}}>
+                    //                                 <span className="span-type">{event.type}</span>
+                    //                                 <div className="div-players" style={{textAlign:'right'}}>
+                    //                                     <label className="label-palyer">{event.player.name}</label><br></br>
+                    //                                     <label className="label-assist">{event.assist.name}</label>
+                    //                                 </div>
+                    //                             </div>                                       
+                    //                             <span className="span-time">{event.time.elapsed !=null? event.time.elapsed :awayEvent.time.elapse }</span>
+                    //                             <div className="div-details" style={{justifyContent:'flex-start'}}>
+                    //                                 <div className="div-players" style={{textAlign:'left'}}>
+                    //                                     <label className="label-palyer">{awayEvent.player.name}</label><br></br>
+                    //                                     <label className="label-assist">{awayEvent.assist.name}</label>
+                    //                                 </div>
+                    //                             <span className="span-type">{awayEvent.type}</span>                                          
+                    //                             </div>
+                    //                         </Fragment>
+                    //                     })
+                    //                     :null }
+                                        
+                                                                    
+                    //                 { <Fragment>                                        
+                    //                     <div className="div-details" style={{justifyContent:'flex-end'}}>
+                    //                         <span className="span-type">{homeEvent.type}</span>
+                    //                         <div className="div-players" style={{textAlign:'right'}}>
+                    //                             <label className="label-palyer">{homeEvent.player.name}</label><br></br>
+                    //                             <label className="label-assist">{homeEvent.assist.name}</label>
+                    //                         </div>
+                    //                     </div>                                       
+                    //                     <span className="span-time">{homeEvent.time.elapsed !=null? homeEvent.time.elapsed :awayEvent.time.elapse }</span>
+                    //                     <div className="div-details" style={{justifyContent:'flex-start'}}>
+                    //                         <div className="div-players" style={{textAlign:'left'}}>
+                    //                             <label className="label-palyer">{awayEvent.player.name}</label><br></br>
+                    //                             <label className="label-assist">{awayEvent.assist.name}</label>
+                    //                         </div>
+                    //                         <span className="span-type">{awayEvent.type}</span>                                          
+                    //                     </div>                                      
+                    //                 </Fragment> }
+                    //             </div>                            
+                    //     )
+                    // }
                     
                 })
                 // events.map((event,index)=>{
