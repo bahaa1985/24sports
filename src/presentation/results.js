@@ -41,20 +41,21 @@ function Results(props){
                                 <div>
                                     <div key={fixture_index} className="fixture" 
                                         onClick={()=>{setClickedFixture(elem.fixture.id);setTeams([elem.teams.home.id,elem.teams.away.id])}}>
-                                        <img src={elem.teams.home.logo}></img>
-                                        <span>{elem.teams.home.name}</span>
-                                        <span>{elem.goals.home}</span>                                
-                                        <span>{elem.goals.away}</span>
-                                        <span>{elem.teams.away.name}</span>
-                                        <img src={elem.teams.away.logo}></img> 
-                                        {clickedFixture===elem.fixture.id ? <Events fixture={elem.fixture.id} teams={teams}/> : null}                                      
+                                        <div>
+                                            <img src={elem.teams.home.logo}></img>
+                                            <span>{elem.teams.home.name}</span>
+                                            <span>{elem.goals.home}</span>                                
+                                            <span>{elem.goals.away}</span>
+                                            <span>{elem.teams.away.name}</span>
+                                            <img src={elem.teams.away.logo}></img>                                             
+                                        </div>                                     
+                                        {clickedFixture===elem.fixture.id ? <Events fixture={elem.fixture.id} teams={teams}/> : null}                                         
                                     </div> 
                                    
                                 </div>
 
                             )
-                        })} 
-                        
+                        })}                         
                         </div>                                 
                     )               
                 })

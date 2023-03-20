@@ -5,9 +5,15 @@
     background-color: darkblue;
     color:white;
 }
-.fixture{
-    margin-left: 20px;
+.fixture-result{
+    height:auto;
+    width:80%;
+    margin:auto;
+    text-align: center;
+}
+.fixture{    
     cursor:pointer;
+    text-align: center;
     /* display: flex;
     justify-content: space-between; */
 }

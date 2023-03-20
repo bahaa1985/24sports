@@ -31,7 +31,7 @@ function Events(props){
 
     const home_events_div=(player,assist,type,index)=>{
         return(
-            <div key={index} style={{display:'flex',justifyContent:'flex-start',margin:'5px auto'}}>
+            <div key={index} style={{display:'flex',justifyContent:'flex-end',margin:'5px auto'}}>
             <span>{type}</span>
             <div className="div-players">
                 <label className="label-palyer">{player}</label><br></br>
@@ -42,7 +42,7 @@ function Events(props){
 
     const away_events_div=(player,assist,type,index)=>{
         return(
-            <div key={index} style={{display:'flex',justifyContent:'flex-end',margin:'5px auto'}}>           
+            <div key={index} style={{display:'flex',justifyContent:'flex-start',margin:'5px auto'}}>           
             <div className="div-players">
                 <label className="label-palyer">{player}</label><br></br>
                 <label className="label-assist">{assist}</label>
@@ -50,21 +50,23 @@ function Events(props){
             <span>{type}</span>
             </div>      )
     }
+
+    let i=0;
     return(        
         <div className='events' >
             
-            {
+            {                
                 GROUPED_EVENTS.map((event,index)=>{                    
                     return(
                        
-                            <div ref={event_div} style={{display:'flex',width:'60%'}}>
+                            <div ref={event_div} key={index} style={{display:'flex',justifyContent:'center',margin:'5px auto',width:'70%'}}>
                                 {
-                                    <div>
+                                    <div style={{width:'40%',float:'right'}}>
                                         {
                                             eventsHome.map((event) => {                                        
                                                 return(
                                                     event.time.elapsed===index? 
-                                                    home_events_div(event.player.name,event.assist.name,event.type,index):
+                                                    home_events_div(event.player.name,event.assist.name,event.type,i++):
                                                     null
                                                 )                                                                                                                                
                                             })
@@ -74,13 +76,13 @@ function Events(props){
                                 }
                                 <span style={{width:'5%'}}>{index}</span>
                                 {
-                                    <div>
+                                    <div style={{width:'40%',float:'left'}}>
                                         {
                                             eventsAway.map((event) => {
                                                                                 
                                                 return(
                                                     event.time.elapsed===index? 
-                                                    away_events_div(event.player.name,event.assist.name,event.type,index):
+                                                    away_events_div(event.player.name,event.assist.name,event.type,i++):
                                                     null
                                                 )                                                                                        
                                             
