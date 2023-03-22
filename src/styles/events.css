@@ -1,6 +1,6 @@
 .events{   
     height:auto;
-    width:80%;
+    width:100%;
     margin:auto;
     text-align: center;
 }
@@ -44,18 +44,6 @@ width:70%;
 height: auto;
 display: block;
 }
-.label-player{
-width:100%;
-}
-.label-assist{
-width:100%;
-}
-.span-time{
-width:10%;
-}
-.div-empty{
-    width:45%;
-}
-.label-empty{
+.label-player,.label-assist{
 width:100%;
 }

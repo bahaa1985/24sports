@@ -26,8 +26,8 @@ function Results(props){
         group[date].push(elem)
         return group
     },{})
-    console.log(groupedResults)
-
+    //console.log(groupedResults)
+    let i=0;
     return(
         <div>
             {               
@@ -38,15 +38,15 @@ function Results(props){
                         <div key={day_index} className="fixture-date"> {elem} </div>                                     
                         {groupedResults[elem].map((elem,fixture_index)=>{
                             return(
-                                <div>
+                                <div key={i++}>
                                     <div key={fixture_index} className="fixture" 
                                         onClick={()=>{setClickedFixture(elem.fixture.id);setTeams([elem.teams.home.id,elem.teams.away.id])}}>
-                                        <div>
+                                        <div className="fixture-teams" key={elem.fixture.id}>
                                             <img src={elem.teams.home.logo}></img>
-                                            <span>{elem.teams.home.name}</span>
-                                            <span>{elem.goals.home}</span>                                
-                                            <span>{elem.goals.away}</span>
-                                            <span>{elem.teams.away.name}</span>
+                                            <span className='team'>{elem.teams.home.name}</span>
+                                            <span className='result'>{elem.goals.home}</span>                                
+                                            <span className='result'>{elem.goals.away}</span>
+                                            <span className='team'>{elem.teams.away.name}</span>
                                             <img src={elem.teams.away.logo}></img>                                             
                                         </div>                                     
                                         {clickedFixture===elem.fixture.id ? <Events fixture={elem.fixture.id} teams={teams}/> : null}                                         
@@ -63,16 +63,6 @@ function Results(props){
                                                          
         </div>
     )
-
-    // append events jsx to fixture div after clicking details button:
-    function appendFixtureDetailsDiv(ref){
-    // const fixture_divs=document.getElementsByClassName('.fixture') 
-    console.log('fixture divs:',ref)
-    // fixture_divs.forEach(div => {
-        // div.removeChild(Events)
-    // });   
-    // fixture_divs[index].appendChild(Events)
-    }
 }
 
 export default Results
