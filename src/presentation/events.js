@@ -2,16 +2,21 @@ import React, { Fragment } from "react";
 import { useState,useEffect,useRef } from "react";
 import getEvents from '../api/getEvents'
 import '../styles/events.css'
+import goal from '../images/goal.png'
+import penalty from '../images/letter-p.png'
+import own_goal from '../images/own-goal.png'
+import missed_penalty from '../images/missed-penalty.png'
+import yellow_card from'../images/yellow.png'
+import red_card from '../images/red.png'
+import VAR from '../images/var.png'
+import substitute from '../images/substitute.png'
 
 function Events(props){
     
     const fixture=props.fixture
-    const teams=props.teams
-    const HOME_TEAM=teams[0],AWAY_TEAM=teams[1];
+    const teams=props.teams   
 
-    const [events,setEvents]=useState([])
-    const [homeMargin,setHomeMargin]=useState(0)
-    const [awayMargin,setAwayMargin]=useState(0)
+    const [events,setEvents]=useState([])  
     const event_div=useRef(HTMLElement);
     useEffect(()=>{
         getEvents(fixture).then((result)=>{
@@ -29,50 +34,84 @@ function Events(props){
     },[])
     console.log('grouped events: ',GROUPED_EVENTS)
 
-    const home_events_div=(player,assist,type,index)=>{
+    const home_events_div=(player,assist,type,detail,index)=>{
         return(
             <div key={index} style={{display:'flex',justifyContent:'flex-end',margin:'5px auto'}}>
-            <span>{type}</span>
+           {
+             type==='Goal'&& detail=='Normal Goal' ? 
+             <img src={goal}></img>:
+             type==='Goal'&& detail=='Penalty' ?
+             <img src={penalty}></img>:
+             type==='Goal'&& detail== 'Own Goal' ?
+             <img src={own_goal}></img>:
+             type==='Goal'&& detail=='Missed penalty' ?
+             <img src={missed_penalty}></img>:
+             type==='Card'&& detail=='Yellow Card' ?
+             <img src={yellow_card}></img>:
+             type==='Card'&& detail=='Red card' ?
+             <img src={red_card}></img>:
+             type==='subst'?
+             <img src={substitute}></img>:
+             type==='Var'&& detail=='Goal cancelled' ?
+             <div style={{display:'block'}}>
+                <img src={VAR} title="var icons"></img>
+                <div>{detail}</div>
+            </div>:
+             type==='Var'&& detail=='Penalty confirmed' ?
+             <div style={{display:'block'}}>
+                <img src={VAR} title="var icons"></img>
+                <div>{detail}</div>
+            </div>:
+             null
+            }
             <div className="div-players">
                 <label className="label-palyer">{player}</label><br></br>
                 <label className="label-assist">{assist}</label>
             </div>
+            
             </div>     )
     }
 
-    const away_events_div=(player,assist,type,details,index)=>{
+    const away_events_div=(player,assist,type,detail,index)=>{
         return(
             <div key={index} style={{display:'flex',justifyContent:'flex-start',margin:'5px auto'}}>           
             <div className="div-players">
                 <label className="label-palyer">{player}</label><br></br>
                 <label className="label-assist">{assist}</label>
-            </div>
-            <span>{
-            type=='Goal'&& details=='Normal Goal' ? 
-            <a href="https://icons8.com/icon/PYXkVRuJka6y/goal"></a>:
-            type=='Goal'&& details=='Penalty' ?
-            <a href="https://icons8.com/icon/35572/penalty" title="soccer icons"></a>:
-            type=='Goal'&& details== 'Own Goal' ?
-            <a href="https://icons8.com/icon/107649/soccer-ball"></a>:
-            type=='Goal'&& details=='Missed Pinalty' ?
-            <a href="https://icons8.com/icon/N8wdFmPIwS0q/missed"></a>:
-            type=='Card'&& details=='Yellow Card' ?
-            <a href="https://icons8.com/icon/kFZBZ6gXs97J/yellow-card"></a>:
-            type=='Card'&& details=='Red Card' ?
-            <a href="https://icons8.com/icon/HBcAjJXG1erl/red-card"></a>:
-            type=='Var'&& details=='Goal Cancelled' ?
-            <a href="https://www.flaticon.com/free-icons/var" title="var icons">Var icons created by Marcus Christensen - Flaticon</a>&&<span>{details}</span>:
-            type=='Var'&& details=='Penalty Confirmed' ?
-            <a href="https://www.flaticon.com/free-icons/var" title="var icons">Var icons created by Marcus Christensen - Flaticon</a>&&<span>{details}</span>:
+            </div>           
+           {
+            type==='Goal'&& detail=='Normal Goal' ? 
+            <img src={goal}></img>:
+            type==='Goal'&& detail=='Penalty' ?
+            <img src={penalty}></img>:
+            type==='Goal'&& detail== 'Own Goal' ?
+            <img src={own_goal}></img>:
+            type==='Goal'&& detail=='Missed Penalty' ?
+            <img src={missed_penalty}></img>:
+            type==='Card'&& detail=='Yellow Card' ?
+            <img src={yellow_card}></img>:
+            type==='Card'&& detail=='Red card' ?
+            <img src={red_card}></img>:
+            type==='subst'?
+            <img src={substitute}></img>:
+            type==='Var'&& detail=='Goal cancelled' ?
+            <div style={{display:'block'}}>
+                <img src={VAR} title="var icons"></img>
+                <div>{detail}</div>
+            </div>:
+            type==='Var'&& detail=='Penalty confirmed' ?
+            <div style={{display:'block'}}>
+                <img src={VAR} title="var icons"></img>
+                <div>{detail}</div>
+            </div>:
             null
-            }</span>
+            }
             </div>      )
     }
 
     let i=0;
     return(        
-        <div className='events' >
-            
+        <div className='events' >          
             {                
                 GROUPED_EVENTS.map((event,index)=>{                    
                     return(
@@ -84,7 +123,7 @@ function Events(props){
                                             eventsHome.map((event) => {                                        
                                                 return(
                                                     event.time.elapsed===index? 
-                                                    home_events_div(event.player.name,event.assist.name,event.type,event.details,i++):
+                                                    home_events_div(event.player.name,event.assist.name,event.type,event.detail,i++):
                                                     null
                                                 )                                                                                                                                
                                             })
@@ -99,7 +138,7 @@ function Events(props){
                                             eventsAway.map((event) => {                                                                                
                                                 return(
                                                     event.time.elapsed===index? 
-                                                    away_events_div(event.player.name,event.assist.name,event.type,event.details,i++):
+                                                    away_events_div(event.player.name,event.assist.name,event.type,event.detail,i++):
                                                     null
                                                 )                                                                                        
                                             
