@@ -3,6 +3,7 @@ import { useState,useEffect,useRef } from 'react'
 import getResults from '../api/getResults'
 import  '../styles/results.css'
 import Events from './events'
+import Statistics from './statistics'
 
 
 
@@ -18,7 +19,8 @@ function Results(props){
     useEffect(()=>{                                                  
         getResults(league,season).then((result)=>{                                 
             setResults( result.data.response )
-    })},[league,season])
+        });
+    },[league,season])
             
     const groupedResults=results.reduce((group,elem)=>{            
         const date= new Date(elem.fixture.date).toDateString()  
@@ -26,7 +28,7 @@ function Results(props){
         group[date].push(elem)
         return group
     },{})
-    //console.log(groupedResults)
+
     let i=0;
     return(
         <div>
@@ -48,10 +50,16 @@ function Results(props){
                                             <span className='result'>{elem.goals.away}</span>
                                             <span className='team'>{elem.teams.away.name}</span>
                                             <img src={elem.teams.away.logo}></img>                                             
-                                        </div>                                     
-                                        {clickedFixture===elem.fixture.id ? <Events fixture={elem.fixture.id} teams={teams}/> : null}                                         
+                                        </div>                                                                            
                                     </div> 
-                                   
+                                   <div>
+                                    <button onClick={()=>{setFixture(elem.fixture.id)}}>Events</button>
+                                    <button onClick={()=>{setFixture(elem.fixture.id)}}>Statistics</button>
+                                    <div>
+                                        <Events fixture={fixture} teams={teams}/>
+                                        <Statistics fixture={fixture} teams={teams}/>
+                                    </div>                                    
+                                   </div>
                                 </div>
 
                             )
