@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import Standings from './presentation/Standings'
+import Standings from './presentation/standings'
 import Results from './presentation/results'
 function App() {
 

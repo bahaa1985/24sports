@@ -11,7 +11,8 @@ function Results(props){
     const [results,setResults]=useState([])
     const [fixture,setFixture]=useState(0)
     const [teams,setTeams]=useState([])
-    const [clickedFixture,setClickedFixture]=useState(0)
+    const [tab,set_tab]=useState('')
+    
    
     const league=props.league
     const season=props.season
@@ -42,7 +43,7 @@ function Results(props){
                             return(
                                 <div key={i++}>
                                     <div key={fixture_index} className="fixture" 
-                                        onClick={()=>{setClickedFixture(elem.fixture.id);setTeams([elem.teams.home.id,elem.teams.away.id])}}>
+                                        onClick={()=>{setFixture(elem.fixture.id);setTeams([elem.teams.home.id,elem.teams.away.id])}}>
                                         <div className="fixture-teams" key={elem.fixture.id}>
                                             <img src={elem.teams.home.logo}></img>
                                             <span className='team'>{elem.teams.home.name}</span>
@@ -53,11 +54,14 @@ function Results(props){
                                         </div>                                                                            
                                     </div> 
                                    <div>
-                                    <button onClick={()=>{setFixture(elem.fixture.id)}}>Events</button>
-                                    <button onClick={()=>{setFixture(elem.fixture.id)}}>Statistics</button>
+                                    <button onClick={()=>{set_tab('events')}}>Events</button>
+                                    <button onClick={()=>{set_tab('statistics')}}>Statistics</button>
                                     <div>
-                                        <Events fixture={fixture} teams={teams}/>
-                                        <Statistics fixture={fixture} teams={teams}/>
+                                        {
+                                            tab==='events' ? <Events fixture={fixture} teams={teams}/>:
+                                            tab==='statistics' ?  <Statistics fixture={fixture} teams={teams}/>: null
+                                        }                                       
+                                        
                                     </div>                                    
                                    </div>
                                 </div>
