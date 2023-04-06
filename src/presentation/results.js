@@ -42,24 +42,26 @@ function Results(props){
                         {groupedResults[elem].map((elem,fixture_index)=>{
                             return(
                                 <div key={i++}>
-                                    <div key={fixture_index} className="fixture" 
+                                    <div className="fixture-teams" key={elem.fixture.id} 
                                         onClick={()=>{setFixture(elem.fixture.id);setTeams([elem.teams.home.id,elem.teams.away.id])}}>
-                                        <div className="fixture-teams" key={elem.fixture.id}>
+                                        {/* <div className="fixture-teams" key={elem.fixture.id}> */}
                                             <img src={elem.teams.home.logo}></img>
                                             <span className='team'>{elem.teams.home.name}</span>
                                             <span className='result'>{elem.goals.home}</span>                                
                                             <span className='result'>{elem.goals.away}</span>
                                             <span className='team'>{elem.teams.away.name}</span>
                                             <img src={elem.teams.away.logo}></img>                                             
-                                        </div>                                                                            
+                                        {/* </div>                                                                             */}
                                     </div> 
                                    <div>
-                                    <button onClick={()=>{set_tab('events')}}>Events</button>
-                                    <button onClick={()=>{set_tab('statistics')}}>Statistics</button>
+                                    <span onClick={()=>{set_tab('events')}}>Events</span>
+                                    <span onClick={()=>{set_tab('statistics')}}>Statistics</span>
                                     <div>
                                         {
-                                            tab==='events' ? <Events fixture={fixture} teams={teams}/>:
-                                            tab==='statistics' ?  <Statistics fixture={fixture} teams={teams}/>: null
+                                            tab==='events' ? 
+                                            <Events fixture={fixture} teams={teams}/>:
+                                            tab==='statistics' ?  
+                                            <Statistics fixture={fixture} teams={teams}/>: null
                                         }                                       
                                         
                                     </div>                                    
