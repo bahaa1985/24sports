@@ -1,4 +1,4 @@
-import React,{ ReactDOM } from 'react'
+import React,{ Fragment, ReactDOM } from 'react'
 import { useState,useEffect,useRef } from 'react'
 import getResults from '../api/getResults'
 import  '../styles/results.css'
@@ -41,7 +41,7 @@ function Results(props){
                         <div key={day_index} className="fixture-date"> {elem} </div>                                     
                         {groupedResults[elem].map((elem,fixture_index)=>{
                             return(
-                                <div key={i++}>
+                                <div key={fixture_index}>
                                     <div className="fixture-teams" key={elem.fixture.id} 
                                         onClick={()=>{setFixture(elem.fixture.id);setTeams([elem.teams.home.id,elem.teams.away.id])}}>
                                         {/* <div className="fixture-teams" key={elem.fixture.id}> */}
@@ -51,21 +51,22 @@ function Results(props){
                                             <span className='result'>{elem.goals.away}</span>
                                             <span className='team'>{elem.teams.away.name}</span>
                                             <img src={elem.teams.away.logo}></img>                                             
-                                        {/* </div>                                                                             */}
-                                    </div> 
-                                   <div>
-                                    <span onClick={()=>{set_tab('events')}}>Events</span>
-                                    <span onClick={()=>{set_tab('statistics')}}>Statistics</span>
-                                    <div>
-                                        {
-                                            tab==='events' ? 
-                                            <Events fixture={fixture} teams={teams}/>:
-                                            tab==='statistics' ?  
-                                            <Statistics fixture={fixture} teams={teams}/>: null
-                                        }                                       
-                                        
-                                    </div>                                    
-                                   </div>
+                                        {/* </div>
+                                                                                                                 */}
+                                    </div>                                     
+                                    <Fragment>
+                                        <span onClick={()=>{set_tab('events')}}>Events</span>
+                                        <span onClick={()=>{set_tab('statistics')}}>Statistics</span>
+                                        <Fragment>
+                                            {
+                                                tab==='events' && fixture===elem.fixture.id?
+                                                <Events fixture={fixture} teams={teams}/>:
+                                                tab==='statistics' && fixture===elem.fixture.id? 
+                                                <Statistics fixture={fixture} teams={teams}/>: null
+                                            }                                       
+                                            
+                                        </Fragment>                                    
+                                    </Fragment>
                                 </div>
 
                             )

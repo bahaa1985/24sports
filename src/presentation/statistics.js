@@ -9,7 +9,7 @@ function Statistics(props){
     const [awayStatistics,setAwayStatistics]=useState(0)
     useEffect(()=>{
         getStatistics(fixture,teams[0]).then((result)=>{
-            setHomeStatistics(result.response.statistics)
+            setHomeStatistics(result.data.response[0].statistics)
         })
     },[fixture,teams])
     console.log('home_st',homeStatistics)
