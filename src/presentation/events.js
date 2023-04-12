@@ -48,18 +48,13 @@ function Events(props){
              <img src={missed_penalty}></img>:
              type==='Card'&& detail=='Yellow Card' ?
              <img src={yellow_card}></img>:
-             type==='Card'&& detail=='Red card' ?
+             type==='Card'&& detail=='Red Card' ?
              <img src={red_card}></img>:
              type==='subst'?
-             <img src={substitute}></img>:
-             type==='Var'&& detail=='Goal cancelled' ?
-             <div style={{display:'block'}}>
-                <img src={VAR} title="var icons"></img>
-                <div>{detail}</div>
-            </div>:
-             type==='Var'&& detail=='Penalty confirmed' ?
-             <div style={{display:'block'}}>
-                <img src={VAR} title="var icons"></img>
+             <img src={substitute}></img>:                    
+             type==='Var'?
+             <div>
+                <img src={VAR}></img>
                 <div>{detail}</div>
             </div>:
              null
