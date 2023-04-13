@@ -62,9 +62,8 @@ function Events(props){
             <div className="div-players">
                 <label className="label-palyer">{player}</label><br></br>
                 <label className="label-assist">{assist}</label>
-            </div>
-            
-            </div>     )
+            </div>            
+            </div>)
     }
 
     const away_events_div=(player,assist,type,detail,index)=>{
@@ -89,16 +88,11 @@ function Events(props){
             <img src={red_card}></img>:
             type==='subst'?
             <img src={substitute}></img>:
-            type==='Var'&& detail=='Goal cancelled' ?
+            type==='Var' ?
             <div style={{display:'block'}}>
                 <img src={VAR} title="var icons"></img>
                 <div>{detail}</div>
-            </div>:
-            type==='Var'&& detail=='Penalty confirmed' ?
-            <div style={{display:'block'}}>
-                <img src={VAR} title="var icons"></img>
-                <div>{detail}</div>
-            </div>:
+            </div>:           
             null
             }
             </div>      )
