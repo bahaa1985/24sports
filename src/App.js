@@ -3,6 +3,8 @@ import logo from './logo.svg';
 import './App.css';
 import Standings from './presentation/standings'
 import Results from './presentation/results'
+import Statistics from './presentation/statistics'
+
 function App() {
 
   let [leagueId,setLeagueId]=useState(0)
@@ -20,7 +22,8 @@ function App() {
       <button onClick={()=>{setLeagueId(61);setSeason(year)}}>Liga Un</button>
      </div>
     {/* <Standings league={leagueId} season={season}/> */}
-    <Results league={leagueId} season={season}/>
+    {/* <Results league={leagueId} season={season}/> */}
+    <Statistics fixture={867946} teams={[52, 42]}/>
     </div>
   );
 }

@@ -1,0 +1,10 @@
+.statistics-details{
+    display: flex;
+    width:100%;
+}
+.statistics-details span{
+    width:5%;
+}
+progress{
+    width:45%;
+}

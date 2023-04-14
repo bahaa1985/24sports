@@ -35,7 +35,8 @@ function Events(props){
     console.log('grouped events: ',GROUPED_EVENTS)
 
     const home_events_div=(player,assist,type,detail,index)=>{
-        return(
+        
+    return(
             <div key={index} style={{display:'flex',justifyContent:'flex-end',margin:'5px auto'}}>
            {
              type==='Goal'&& detail=='Normal Goal' ? 
