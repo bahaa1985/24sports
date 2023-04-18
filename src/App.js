@@ -21,8 +21,8 @@ function App() {
       <button onClick={()=>{setLeagueId(61);setSeason(year)}}>Liga Un</button>
      </div>
     {/* <Standings league={leagueId} season={season}/> */}
-    {/* <Results league={leagueId} season={season}/> */}
-    <Statistics fixture={867946} teams={[52, 42]}/>
+    <Results league={leagueId} season={season}/>
+    {/* <Statistics fixture={867946} teams={[52, 42]}/> */}
     </div>
   );
 }

@@ -23,59 +23,51 @@ function Statistics(props){
             setHomeStatistics(result.data.response[0].statistics)
         });                                      
         console.log('home effect!')
-    },[])
+    },[fixture,home_team])
 
     useEffect(()=>{
         getStatistics(fixture,away_team).then((result)=>{
             setAwayStatistics(result.data.response[0].statistics)
         });
         console.log('home effect!')
-    },[])
-
-    // let home_arr=Array.from(homeStatistics)
-    // let away_arr=Array.from(awayStatistics);    
-
-   
+    },[fixture,away_team])
+  
     let total,max,factor=0;
     let screen_width=window.innerWidth
     let prgress_width=(45*screen_width)/100
     return(
         <div>           
-            {
-                homeStatistics.map((index,value)=>{
-                    <span>{value.type}</span>
-                })
-                // ()=>{             
-                //     for(let i=0;i<homeStatistics.length;i++){
-                //        statistic_obj={home:homeStatistics[i].value,
-                //                        type:homeStatistics[i].type,
-                //                        away:awayStatistics[i].value }
-                //        statistics_arr.push(statistic_obj)
-                //    }  
-                    
-                //    statistics_arr.map((element,index)=>{
-                //        total=element.home+element.away
-                //        max=prgress_width
-                //        factor=max/total                    
-                //        return(
-                //        <div>
-                //            <div>{element.type}</div>
-                //            <div className="statistics-details">
-                //                <span>{element.home}</span>
-                //                <div>
-                //                    <progress max={max} value={element.home*factor}></progress>
-                //                </div>
-                //                <div>
-                //                    <progress max={max} value={element.away*factor}></progress>
-                //                </div>
-                //                <span>{element.away}</span>
-                //            </div>
-                //        </div>
-                //        )
-                //    })                          
-                       
-                //    }
+        {/* {            
+            for(let i=0;i<homeStatistics.length;i++){
+                statistic_obj={home:homeStatistics[i].value,
+                                type:homeStatistics[i].type,
+                                away:awayStatistics[i].value }
+                statistics_arr.push(statistic_obj)
             }
+        } */}
+        {
+            homeStatistics.map((home,i)=>{
+                console.log('index',i)
+                total=home.value+awayStatistics[i].value
+                max=prgress_width
+                factor=max/total                    
+                return(
+                <div>
+                    <div>{home.type}</div>
+                    <div className="statistics-details">
+                        <span>{home.value}</span>
+                        <div>
+                            <progress className="progress-home" max={max} value={home.value*factor}></progress>
+                        </div>
+                        <div>
+                            <progress className="progress-away" max={max} value={awayStatistics[i].value*factor}></progress>
+                        </div>
+                        <span>{awayStatistics[i].value}</span>
+                    </div>
+                </div>
+                )
+            }) 
+        }
         </div>
     )
 }

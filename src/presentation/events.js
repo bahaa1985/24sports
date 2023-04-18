@@ -32,7 +32,7 @@ function Events(props){
         group[TIME].push(elem);
         return group;
     },[])
-    console.log('grouped events: ',GROUPED_EVENTS)
+    // console.log('grouped events: ',GROUPED_EVENTS)
 
     const home_events_div=(player,assist,type,detail,index)=>{
         

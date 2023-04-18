@@ -8,3 +8,9 @@
 progress{
     width:45%;
 }
+.progress-home{
+    color:green;
+}
+.progress-away{
+    color:blue;
+}
