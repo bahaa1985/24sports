@@ -1,9 +1,9 @@
 import axios from 'axios'
 
- function getStandings(leagueId,season){
+ function getResults(league,season){
   let config = {
     method: 'GET',
-    url: 'https://v3.football.api-sports.io/standings?league='+leagueId+'&season='+season,
+    url: `/fixtures?league=${league}&season=${season}`,
     headers: {
       'x-rapidapi-host': 'v3.football.api-sports.io',
       'x-rapidapi-key': '12c3d051c8f77e0840cd9c5e35fd8cd0'
@@ -15,6 +15,6 @@ import axios from 'axios'
 }
 
 
-export default getStandings
+export default getResults
 
 
