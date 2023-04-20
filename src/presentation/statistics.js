@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import getStatistics from "../api/getStatistics";
 import '../styles/statistics.css'
 import { useEffect,useState } from "react";
@@ -9,6 +9,7 @@ function Statistics(props){
     const fixture=props.fixture
     const [homeStatistics,setHomeStatistics]=useState([])
     const [awayStatistics,setAwayStatistics]=useState([])
+    const progress_div_ref=useRef();
     
     let statistic_obj={
         "home":0,
@@ -16,7 +17,7 @@ function Statistics(props){
         "type":''
     }
     
-    
+
     
     useEffect(()=>{
         getStatistics(fixture,home_team).then((result)=>{
@@ -34,70 +35,48 @@ function Statistics(props){
   
     let total,max,factor=0;
     let screen_width=window.innerWidth
-    let progress_width=(45*screen_width)/100
-
+    let progress_div_width=0
+    let ss='ewe'    
     const statistics_arr=Array.from(Array(16),()=>({
         "home":0,
         "away":0,
         "type":''
     }))
+    
 
     return(
-        <div>                              
+        <section style={{width:'90%',height: 'auto',margin:'auto',textAlign: 'center'}}>                              
             {homeStatistics.map((item,index)=>{
                 statistics_arr[index].type=item.type;
-                item.value===null? statistics_arr[index].home=0 :
-                typeof(item.value)===String && item.value.contains('%')? statistics_arr[index].home=item.value.substring(item.value.length-1) : 
+                item.value===null? statistics_arr[index].home=0 :                
+                // typeof(item.value)==="string" && item.value.includes('%')? statistics_arr[index].home=Number.parseInt(item.value) : 
                 statistics_arr[index].home=item.value;                
             })}
             {awayStatistics.map((item,index)=>{              
                 item.value===null? statistics_arr[index].away=0 :
-                typeof(item.value)===String && item.value.contains('%')? statistics_arr[index].away=item.value.substring(item.value.length-1) : 
+                // typeof(item.value)==="string" && item.value.includes('%')? statistics_arr[index].away=Number.parseInt(item.value)  : 
                 statistics_arr[index].away=item.value; 
             })}
-            {console.log('st_arr',...statistics_arr)}
+            
             {statistics_arr.map((item,index)=>{                                
-                total=item.home+item.away;
+                total=Number.parseInt(item.home)+Number.parseInt(item.away);             
                 return(
-                    <div key={index}>
+                    <div key={index} style={{width:'100%',textAlign:'center'}}>
                         <div>{item.type}</div>
-                            <div className="statistics-details">
-                                <span>{item.home}</span>
-                            <div>
-                                <progress className="progress-home" max={total} value={item.home} width={progress_width+'px'}></progress>
+                        <div ref={progress_div_ref} style={{display: 'flex',justifyContent:'center',width:'100%'}}>
+                            <span>{item.home}</span>
+                            <div style={{width:'45%'}}>
+                                <progress className="progress-home" max={total} value={Number.parseInt(item.home)}></progress>
                             </div>
-                            <div>
-                                <progress className="progress-away" max={total} value={item.away} width={progress_width+'px'}></progress>
+                            <div style={{width:'45%'}}>
+                                <progress className="progress-away" max={total} value={Number.parseInt(item.away)}></progress>
                             </div>
                             <span>{item.away}</span>
                         </div>
                     </div>
                 )
-            })}               
-            
-            {/* //  homeStatistics.map((home,index)=>{
-            //     console.log('index',index)
-            //     total=home.value+awayStatistics[index].value
-            //     max=prgress_width
-            //     factor=max/total                    
-            //     return(
-            //     <div>
-            //         <div>{home.type}</div>
-            //         <div className="statistics-details">
-            //             <span>{home.value}</span>
-            //             <div>
-            //                 <progress className="progress-home" max={total} value={home.value}></progress>
-            //             </div>
-            //             <div>
-            //                 <progress className="progress-away" max={total} value={awayStatistics[index].value}></progress>
-            //             </div>
-            //             <span>{awayStatistics[index].value}</span>
-            //         </div>
-            //     </div>
-            //     )
-            // }) 
-        // } */}
-        </div>
+            })}                                      
+        </section>
     )
 }
 
