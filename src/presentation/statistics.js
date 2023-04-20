@@ -29,7 +29,7 @@ function Statistics(props){
         getStatistics(fixture,away_team).then((result)=>{
             setAwayStatistics(result.data.response[0].statistics)
         });
-        console.log('away effect!')
+        console.log('home effect!')
     },[fixture,away_team])
   
     let total,max,factor=0;
