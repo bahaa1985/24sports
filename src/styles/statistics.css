@@ -1,16 +1,20 @@
-.statistics-details{
-    display: flex;
+
+span{
+    width:auto;
+}
+progress {
+    -webkit-appearance: none;
+    appearance: none;
+    background:gray !important;    
+    height: 75%; 
     width:100%;
-}
-.statistics-details span{
-    width:5%;
-}
-progress{
-    width:45%;
-}
+  }
 .progress-home{
-    color:green;
+    direction: rtl;
 }
-.progress-away{
-    color:blue;
+.progress-home::-webkit-progress-value{
+    background:green !important;      
+}
+.progress-away::-webkit-progress-value{
+    background:blue !important;
 }

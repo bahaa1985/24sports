@@ -4,6 +4,7 @@ import getResults from '../api/getResults'
 import  '../styles/results.css'
 import Events from './events'
 import Statistics from './statistics'
+import LineUps from './lineUps'
 
 
 
@@ -51,20 +52,26 @@ function Results(props){
                                             <img src={elem.teams.away.logo}></img>                                                                                                                                                       
                                     </div>                                     
                                     <div>
-                                        <span onClick={()=>{setTab('events');
+                                        <span onClick={()=>{setTab('Events');
                                                             setFixture(elem.fixture.id);
                                                             setTeams([elem.teams.home.id,elem.teams.away.id]);}}>Events</span>
-                                        <span onClick={()=>{setTab('statistics');
+                                        <span onClick={()=>{setTab('Statistics');
                                                             setFixture(elem.fixture.id);
                                                             setTeams([elem.teams.home.id,elem.teams.away.id]);}}>Statistics</span>
+                                        <span onClick={()=>{setTab('Line Ups');
+                                                            setFixture(elem.fixture.id);
+                                                            setTeams([elem.teams.home.id,elem.teams.away.id]);}}>Line Ups</span>
                                         <Fragment> 
                                             {
-                                                //to display events, statistics panes belo the fixture, 
+                                                //to display events, statistics and lineup panes belo the fixture, 
                                                 //depending on what user click:
-                                                tab==='events' && fixture===elem.fixture.id?
+                                                tab==='Events' && fixture===elem.fixture.id?
                                                 <Events fixture={fixture} teams={teams}/>:
-                                                tab==='statistics' && fixture===elem.fixture.id? 
-                                                <Statistics fixture={fixture} teams={teams}/>: null
+                                                tab==='Statistics' && fixture===elem.fixture.id? 
+                                                <Statistics fixture={fixture} teams={teams}/>: 
+                                                tab==='Line Ups' && fixture===elem.fixture.id? 
+                                                <LineUps fixture={fixture} teams={teams}/>: 
+                                                null
                                             }                                       
                                             
                                         </Fragment>                                    

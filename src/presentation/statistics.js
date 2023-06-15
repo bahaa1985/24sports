@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import getStatistics from "../api/getStatistics";
 import '../styles/statistics.css'
 import { useEffect,useState } from "react";
@@ -9,14 +9,15 @@ function Statistics(props){
     const fixture=props.fixture
     const [homeStatistics,setHomeStatistics]=useState([])
     const [awayStatistics,setAwayStatistics]=useState([])
+    const progress_div_ref=useRef();
     
     let statistic_obj={
-        home:'',
-        away:'',
-        type:''
+        "home":0,
+        "away":0,
+        "type":''
     }
     
-    const statistics_arr=[];
+
     
     useEffect(()=>{
         getStatistics(fixture,home_team).then((result)=>{
@@ -34,41 +35,48 @@ function Statistics(props){
   
     let total,max,factor=0;
     let screen_width=window.innerWidth
-    let prgress_width=(45*screen_width)/100
+    let progress_div_width=0
+    let ss='ewe'    
+    const statistics_arr=Array.from(Array(16),()=>({
+        "home":0,
+        "away":0,
+        "type":''
+    }))
+    
+
     return(
-        <div>           
-        {/* {            
-            for(let i=0;i<homeStatistics.length;i++){
-                statistic_obj={home:homeStatistics[i].value,
-                                type:homeStatistics[i].type,
-                                away:awayStatistics[i].value }
-                statistics_arr.push(statistic_obj)
-            }
-        } */}
-        {
-            homeStatistics.map((home,i)=>{
-                console.log('index',i)
-                total=home.value+awayStatistics[i].value
-                max=prgress_width
-                factor=max/total                    
+        <section style={{width:'90%',height: 'auto',margin:'auto',textAlign: 'center'}}>                              
+            {homeStatistics.map((item,index)=>{
+                statistics_arr[index].type=item.type;
+                item.value===null? statistics_arr[index].home=0 :                
+                // typeof(item.value)==="string" && item.value.includes('%')? statistics_arr[index].home=Number.parseInt(item.value) : 
+                statistics_arr[index].home=item.value;                
+            })}
+            {awayStatistics.map((item,index)=>{              
+                item.value===null? statistics_arr[index].away=0 :
+                // typeof(item.value)==="string" && item.value.includes('%')? statistics_arr[index].away=Number.parseInt(item.value)  : 
+                statistics_arr[index].away=item.value; 
+            })}
+            
+            {statistics_arr.map((item,index)=>{                                
+                total=Number.parseInt(item.home)+Number.parseInt(item.away);             
                 return(
-                <div>
-                    <div>{home.type}</div>
-                    <div className="statistics-details">
-                        <span>{home.value}</span>
-                        <div>
-                            <progress className="progress-home" max={max} value={home.value*factor}></progress>
+                    <div key={index} style={{width:'100%',textAlign:'center'}}>
+                        <div>{item.type}</div>
+                        <div ref={progress_div_ref} style={{display: 'flex',justifyContent:'center',width:'100%'}}>
+                            <span>{item.home}</span>
+                            <div style={{width:'45%'}}>
+                                <progress className="progress-home" max={total} value={Number.parseInt(item.home)}></progress>
+                            </div>
+                            <div style={{width:'45%'}}>
+                                <progress className="progress-away" max={total} value={Number.parseInt(item.away)}></progress>
+                            </div>
+                            <span>{item.away}</span>
                         </div>
-                        <div>
-                            <progress className="progress-away" max={max} value={awayStatistics[i].value*factor}></progress>
-                        </div>
-                        <span>{awayStatistics[i].value}</span>
                     </div>
-                </div>
                 )
-            }) 
-        }
-        </div>
+            })}                                      
+        </section>
     )
 }
 
