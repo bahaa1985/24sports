@@ -1,8 +1,6 @@
 import { useState } from 'react';
 import './App.css';
-import Standings from './presentation/standings'
 import Results from './presentation/results'
-import Statistics from './presentation/statistics'
 
 function App() {
 
