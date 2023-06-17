@@ -13,8 +13,7 @@ function LineUps(props){
     const [homeFormation,setHomeFormation]=useState([]);
     const [awayLineUp,setAwayLineUp]=useState([]);
     const [awayFormation,setAwayFormation]=useState([]);    
-    let [clickedTeam,setClickedTeam]=useState("");
-    let [grid,setGrid]=useState(0);
+    let [clickedTeam,setClickedTeam]=useState("");   
     
     useEffect(()=>{
         getLinesUps(fixtureId).then((result)=>{
@@ -30,21 +29,19 @@ function LineUps(props){
     // let homeFormationArr= [];
     // let awayFormationArr= [];
 
-    // console.log('Home start:',homeLineUp);
-    // console.log('Away start:',awayLineUp);
+    console.log('Home start:',homeFormation);
+    console.log('Away start:',awayFormation);
                
     function playerPosition(lineup,grid){
             console.log('this is line up:',lineup)       
-            // lineup.filter((player)=>player.player.grid[0]===grid)
-            //             .sort((playerA,playerB)=>parseInt(playerA.player.grid[2]) - parseInt(playerB.player.grid[2]))
-            //             .map((player,index)=>{                            
-            //                     <div key={index}>
-            //                         {player.player.name}
-            //                     </div>                            
-            //             }) 
-            lineup.forEach(element => {
-                return(<div>{element}</div>)
-            });       
+           return(lineup.filter((player)=>player.player.grid[0]===grid)
+                        .sort((playerA,playerB)=>parseInt(playerA.player.grid[2]) - parseInt(playerB.player.grid[2]))
+                        // .map((player,index)=>{                            
+                        //         return(<div key={index}>
+                        //             {player.player.name}
+                        //         </div> )                           
+                        // })                   
+           )
     }
     
     return(    
@@ -55,30 +52,90 @@ function LineUps(props){
             </div>
             <div className='pitch'>
                 {                    
-                    clickedTeam==="h"?                                                                                                                                                                                                                   
-                        [                           
-                            <div>hi home</div>, 
-                            homeFormation.map((item,index)=>{                                                        
-                                <div className='line' key={index}>
-                                {
-                                    playerPosition(homeLineUp,(index+2).toString())                                                                           
-                                }
+                    clickedTeam==="h"?                                                                                                                                                                                                                                          
+                            homeFormation.length=== 3 ? 
+                            (
+                                <div className='line' key={1}>
+                                    {
+                                        homeLineUp[0].player.name
+                                    }
                                 </div>
-                            })
-                        ]                                                   
+                                ,
+                               ()=><div className='line' key={2}>
+                                    {
+                                       homeLineUp.filter((player)=>player.player.grid[0]==="2")
+                                       .sort((playerA,playerB)=>parseInt(playerA.player.grid[2]) - parseInt(playerB.player.grid[2]))
+                                       .map((player,index)=>{                            
+                                               return(<div key={index}>
+                                                   {player.player.name}
+                                               </div> )                           
+                                       })      
+                                    }
+                                </div>
+                                ,
+                                <div className='line' key={3}>
+                                    {
+                                        homeLineUp.filter((player)=>player.player.grid[0]==="3")
+                                        .sort((playerA,playerB)=>parseInt(playerA.player.grid[2]) - parseInt(playerB.player.grid[2]))
+                                        .map((player,index)=>{                            
+                                                return(<div key={index}>
+                                                    {player.player.name}
+                                                </div> )                           
+                                        }) 
+                                    }
+                                </div>
+                                ,
+                                ()=><div className='line' key={4}>
+                                    {
+                                        homeLineUp.filter((player)=>player.player.grid[0]==="4")
+                                        .sort((playerA,playerB)=>parseInt(playerA.player.grid[2]) - parseInt(playerB.player.grid[2]))
+                                        .map((player,index)=>{                            
+                                                return(<div key={index}>
+                                                    {player.player.name}
+                                                </div> )                           
+                                        }) 
+                                    }
+                                </div>
+                            )
+                                
+                            :
+                            homeFormation.length=== 4 ?
+                            (
+                                <div className='line' key={1}>
+                                    {homeLineUp[0].player.name}
+                                </div>
+                                ,
+                                <div className='line' key={2}>
+                                    {playerPosition(homeLineUp,"2")}
+                                </div>
+                                ,
+                                <div className='line' key={3}>
+                                    {playerPosition(homeLineUp,"3")}
+                                </div>
+                                ,
+                                <div className='line' key={4}>
+                                    {playerPosition(homeLineUp,"4")}
+                                </div>
+                                ,
+                                <div className='line' key={5}>
+                                    {playerPosition(homeLineUp,"5")}
+                                </div>
+                            )
+                            :
+                            null
+                                                                       
                     :
 
-                    clickedTeam==="a"? 
-                                          
-                        [                       
+                    clickedTeam==="a"?                                           
+                        (
                           <div>hi away</div>,                        
                             awayFormation.map((item,index)=>{                                                
                                 <div className='line'>
                                 {playerPosition(awayLineUp,(index+2).toString())}                    
                                 </div>
                             })
-                        ]
-                       
+                        )
+
                     :null                    
                 }
             </div>
