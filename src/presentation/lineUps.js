@@ -3,6 +3,34 @@ import { useState,useEffect } from 'react'
 import getLinesUps from '../api/getLinesUps'
 import '../styles/lineup.css';
 
+
+function PlayerPosition(props){
+           const lineup=props.lineup;
+           const grid=props.grid.toString(); 
+
+           const sp_lineup=lineup.filter((player)=>player.player.grid[0]===grid)
+                .sort((playerA,playerB)=>parseInt(playerB.player.grid[2]) - parseInt(playerA.player.grid[2]))
+            
+            console.log('this is line up:',sp_lineup);
+            
+            return(
+                <>
+                    {
+                        sp_lineup.map((player,index)=>{
+                            return(
+                                <div>
+                                <span>{player.player.name}</span>
+                                <br/>
+                                <span>{player.player.number}</span>
+                                </div>
+                            )
+                        })
+                    }
+                </>
+            )
+                                                   
+}
+
 function LineUps(props){
     const home=props.teams[0];
     const away=props.teams[1];
@@ -30,19 +58,7 @@ function LineUps(props){
     // let awayFormationArr= [];
 
     console.log('Home start:',homeFormation);
-    console.log('Away start:',awayFormation);
-               
-    function playerPosition(lineup,grid){
-            console.log('this is line up:',lineup)       
-           return(lineup.filter((player)=>player.player.grid[0]===grid)
-                        .sort((playerA,playerB)=>parseInt(playerA.player.grid[2]) - parseInt(playerB.player.grid[2]))
-                        // .map((player,index)=>{                            
-                        //         return(<div key={index}>
-                        //             {player.player.name}
-                        //         </div> )                           
-                        // })                   
-           )
-    }
+    console.log('Away start:',awayFormation);                   
     
     return(    
         <div>                   
@@ -50,95 +66,130 @@ function LineUps(props){
                 <button onClick={()=>setClickedTeam("h")}>{homeTeam}</button>
                 <button onClick={()=>setClickedTeam("a")}>{awayTeam}</button>
             </div>
-            <div className='pitch'>
+           
                 {                    
-                    clickedTeam==="h"?                                                                                                                                                                                                                                          
-                            homeFormation.length=== 3 ? 
-                            (
-                                <div className='line' key={1}>
-                                    {
-                                        homeLineUp[0].player.name
-                                    }
+                    clickedTeam==="h"?
+                    <>
+                        <div>Formation: {homeFormation.join('-')}</div> 
+                        <div className='pitch'>                                                                                                                                                                                                                                                                                       
+                            {homeFormation.length=== 3 ? 
+                            
+                                <>
+                                <div className='line' key={1} style={{height:'25%'}}>
+                                    <span>{homeLineUp[0].player.name}</span>
+                                    <br></br>
+                                    <span>{homeLineUp[0].player.number}</span>
                                 </div>
-                                ,
-                               ()=><div className='line' key={2}>
-                                    {
-                                       homeLineUp.filter((player)=>player.player.grid[0]==="2")
-                                       .sort((playerA,playerB)=>parseInt(playerA.player.grid[2]) - parseInt(playerB.player.grid[2]))
-                                       .map((player,index)=>{                            
-                                               return(<div key={index}>
-                                                   {player.player.name}
-                                               </div> )                           
-                                       })      
-                                    }
-                                </div>
-                                ,
-                                <div className='line' key={3}>
-                                    {
-                                        homeLineUp.filter((player)=>player.player.grid[0]==="3")
-                                        .sort((playerA,playerB)=>parseInt(playerA.player.grid[2]) - parseInt(playerB.player.grid[2]))
-                                        .map((player,index)=>{                            
-                                                return(<div key={index}>
-                                                    {player.player.name}
-                                                </div> )                           
-                                        }) 
-                                    }
-                                </div>
-                                ,
-                                ()=><div className='line' key={4}>
-                                    {
-                                        homeLineUp.filter((player)=>player.player.grid[0]==="4")
-                                        .sort((playerA,playerB)=>parseInt(playerA.player.grid[2]) - parseInt(playerB.player.grid[2]))
-                                        .map((player,index)=>{                            
-                                                return(<div key={index}>
-                                                    {player.player.name}
-                                                </div> )                           
-                                        }) 
-                                    }
-                                </div>
-                            )
                                 
+                                <div className='line' key={2} style={{height:'25%'}}>                                    
+                                    <PlayerPosition lineup={homeLineUp} grid={"2"} />                                    
+                                </div>
+                                
+                                <div className='line' key={3} style={{height:'25%'}}>                                    
+                                    <PlayerPosition lineup={homeLineUp} grid={"3"} />                                   
+                                </div>
+                                
+                                <div className='line' key={4} style={{height:'25%'}}>                                    
+                                    <PlayerPosition lineup={homeLineUp} grid={"4"} />                                   
+                                </div>
+                                </>
+                                                    
                             :
                             homeFormation.length=== 4 ?
                             (
-                                <div className='line' key={1}>
-                                    {homeLineUp[0].player.name}
+                                <>
+                                <div className='line' key={1} style={{height:'20%'}}>
+                                    <span>{homeLineUp[0].player.name}</span>
+                                    <br></br>
+                                    <span>{homeLineUp[0].player.number}</span>
                                 </div>
-                                ,
-                                <div className='line' key={2}>
-                                    {playerPosition(homeLineUp,"2")}
+                                
+                                <div className='line' key={2} style={{height:'20%'}}>                                    
+                                    <PlayerPosition lineup={homeLineUp} grid={"2"} />                                    
                                 </div>
-                                ,
-                                <div className='line' key={3}>
-                                    {playerPosition(homeLineUp,"3")}
+                                
+                                <div className='line' key={3} style={{height:'20%'}}>                                    
+                                    <PlayerPosition lineup={homeLineUp} grid={"3"} />                                   
                                 </div>
-                                ,
-                                <div className='line' key={4}>
-                                    {playerPosition(homeLineUp,"4")}
+                                
+                                <div className='line' key={4} style={{height:'20%'}}>                                    
+                                    <PlayerPosition lineup={homeLineUp} grid={"4"} />                                   
                                 </div>
-                                ,
-                                <div className='line' key={5}>
-                                    {playerPosition(homeLineUp,"5")}
+
+                                <div className='line' key={5} style={{height:'20%'}}>                                   
+                                    <PlayerPosition lineup={homeLineUp} grid={"5"} />                                   
                                 </div>
+                                </>
                             )
                             :
                             null
-                                                                       
+                            }
+                        </div>
+                    </>
+                                                                    
+                :
+
+                clickedTeam==="a"? 
+                <>
+                    <div>Formation: {awayFormation.join('-')}</div> 
+                    <div className='pitch'> 
+                    {awayFormation.length=== 3 ? 
+                    (
+                        <>
+                        <div  key={1} style={{display:'block',height:'25%'}}>
+                            <span>{awayLineUp[0].player.name}</span>
+                            <br></br>
+                            <span>{awayLineUp[0].player.number}</span>
+                        </div>
+                        
+                        <div className='line' key={2} style={{height:'25%'}}>                                    
+                            <PlayerPosition lineup={awayLineUp} grid={"2"} />                                    
+                        </div>
+                        
+                        <div className='line' key={3} style={{height:'25%'}}>                                    
+                            <PlayerPosition lineup={awayLineUp} grid={"3"} />                                   
+                        </div>
+                        
+                        <div className='line' key={4} style={{height:'25%'}}>                                    
+                            <PlayerPosition lineup={awayLineUp} grid={"4"} />                                   
+                        </div>
+                        </>
+                    )
+                        
                     :
+                    awayFormation.length=== 4 ?
+                    (
+                        <>
+                        <div className='line' key={1} style={{height:'20%'}}>
+                            <span>{awayLineUp[0].player.name}</span>
+                            <br></br>
+                            <span>{awayLineUp[0].player.number}</span>
+                        </div>
+                        
+                        <div className='line' key={2} style={{height:'20%'}}>                                    
+                            <PlayerPosition lineup={awayLineUp} grid={"2"} />                                    
+                        </div>
+                        
+                        <div className='line' key={3} style={{height:'20%'}}>                                    
+                            <PlayerPosition lineup={awayLineUp} grid={"3"} />                                   
+                        </div>
+                        
+                        <div className='line' key={4} style={{height:'20%'}}>                                    
+                            <PlayerPosition lineup={awayLineUp} grid={"4"} />                                   
+                        </div>
 
-                    clickedTeam==="a"?                                           
-                        (
-                          <div>hi away</div>,                        
-                            awayFormation.map((item,index)=>{                                                
-                                <div className='line'>
-                                {playerPosition(awayLineUp,(index+2).toString())}                    
-                                </div>
-                            })
-                        )
-
-                    :null                    
-                }
-            </div>
+                        <div className='line' key={5} style={{height:'20%'}}>                                   
+                            <PlayerPosition lineup={awayLineUp} grid={"5"} />                                   
+                        </div>
+                        </>
+                    )
+                    :null
+                    }                
+                    </div>
+                </>                                          
+                :
+                null  
+            }
         </div>
     )
 }
