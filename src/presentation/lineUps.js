@@ -1,6 +1,7 @@
 import React,{ ReactDOM } from 'react'
 import { useState,useEffect } from 'react'
 import getLinesUps from '../api/getLinesUps'
+import getPlayers from '../api/getPlayers';
 import '../styles/lineup.css';
 
 
@@ -30,18 +31,20 @@ function PlayerPosition(props){
 }
 
 function LineUps(props){
-    const home=props.teams[0];
-    const away=props.teams[1];
+    const homeId=props.teams[0];
+    const awayId=props.teams[1];
     const fixtureId=props.fixture;
     const [homeTeam,setHomeTeam]=useState("");
     const [awayTeam,setAwayTeam]=useState("");
     const [homeLineUp,setHomeLineUp]=useState([]);
     const [homeFormation,setHomeFormation]=useState([]);
     const [awayLineUp,setAwayLineUp]=useState([]);
-    const [awayFormation,setAwayFormation]=useState([]);    
+    const [awayFormation,setAwayFormation]=useState([]);
+    const [homePlayers,setHomePlayers] =useState([]);   
+    const [awayPlayers,setAwayPlayers] =useState([]);
     let [clickedTeam,setClickedTeam]=useState("");   
     
-    useEffect(()=>{
+    useEffect(()=>{ // call formation and line up players:
         getLinesUps(fixtureId).then((result)=>{
             setHomeLineUp(result.data.response[0].startXI);
             setHomeFormation(Array.from(result.data.response[0].formation.replaceAll('-','')));
@@ -49,14 +52,20 @@ function LineUps(props){
             setAwayLineUp(result.data.response[1].startXI);
             setAwayFormation(Array.from(result.data.response[1].formation.replaceAll('-','')));
             setAwayTeam(result.data.response[1].team.name);
+
+            getPlayers(fixtureId).then((result)=>{
+                setHomePlayers(result.data.response[0].players);
+                setAwayPlayers(result.data.response[1].players);
+            });  
         })
     },[fixtureId]);
 
-    // let homeFormationArr= [];
-    // let awayFormationArr= [];
+    useEffect(()=>{ // call home players' statistics:
+            
+    },[fixtureId])
 
-    console.log('Home start:',homeFormation);
-    console.log('Away start:',awayFormation);                   
+    console.log('Home start:',homePlayers);
+    console.log('Away start:',awayPlayers);                   
     
     return(    
         <div>                   
@@ -91,67 +100,11 @@ function LineUps(props){
                                     <PlayerPosition lineup={homeLineUp} grid={"4"} />                                   
                                 </div>
                                 {
-                                homeFormation.length>3 ?
+                                    homeFormation.length>3 ?
                                     <div className='line' key={5} >                                   
                                         <PlayerPosition lineup={homeLineUp} grid={"5"} />                                   
-                                    </div>:null}
-                            {/* {homeFormation.length=== 3 ? 
-                            
-                                <>
-                                <div className='goalkeeper' key={1}>
-                                    <div>
-                                    <span>{homeLineUp[0].player.name}</span>
-                                    <br></br>
-                                    <span>{homeLineUp[0].player.number}</span>
-                                    </div>
-                                </div>
-                                
-                                <div className='line' key={2} >                                    
-                                    <PlayerPosition lineup={homeLineUp} grid={"2"} />                                    
-                                </div>
-                                
-                                <div className='line' key={3}>                                    
-                                    <PlayerPosition lineup={homeLineUp} grid={"3"} />                                   
-                                </div>
-                                
-                                <div className='line' key={4}>                                    
-                                    <PlayerPosition lineup={homeLineUp} grid={"4"} />                                   
-                                </div>
-                                </>
-                                                    
-                            :
-                            homeFormation.length=== 4 ?
-                            (
-                                <>
-                                <div className='goalkeeper' key={1}>
-                                    <div>
-                                        <span>{homeLineUp[0].player.name}</span>
-                                        <br></br>
-                                        <span>{homeLineUp[0].player.number}</span>
-                                    </div>
-                                    
-                                </div>
-                                
-                                <div className='line' key={2} >                                    
-                                    <PlayerPosition lineup={homeLineUp} grid={"2"} />                                    
-                                </div>
-                                
-                                <div className='line' key={3} >                                    
-                                    <PlayerPosition lineup={homeLineUp} grid={"3"} />                                   
-                                </div>
-                                
-                                <div className='line' key={4}>                                    
-                                    <PlayerPosition lineup={homeLineUp} grid={"4"} />                                   
-                                </div>
-
-                                <div className='line' key={5} >                                   
-                                    <PlayerPosition lineup={homeLineUp} grid={"5"} />                                   
-                                </div>
-                                </>
-                            )
-                            :
-                            null
-                            } */}
+                                    </div>:null
+                                }                            
                         </div>
                     </>
                                                                     
@@ -187,65 +140,7 @@ function LineUps(props){
                                     <PlayerPosition lineup={awayLineUp} grid={"5"} />                                   
                                 </div>
                             :null
-                        }
-                    {/* {awayFormation.length=== 3 ? 
-                    (
-                        <>
-                        <div className='goalkeeper' key={1} >
-                            <div>
-                                <span>{awayLineUp[0].player.name}</span>
-                                <br></br>
-                                <span>{awayLineUp[0].player.number}</span>
-                            </div>
-                            
-                        </div>
-                        
-                        <div className='line' key={2}>                                    
-                            <PlayerPosition lineup={awayLineUp} grid={"2"} />                                    
-                        </div>
-                        
-                        <div className='line' key={3} >                                    
-                            <PlayerPosition lineup={awayLineUp} grid={"3"} />                                   
-                        </div>
-                        
-                        <div className='line' key={4} >                                    
-                            <PlayerPosition lineup={awayLineUp} grid={"4"} />                                   
-                        </div>
-                        </>
-                    )
-                        
-                    :
-                    awayFormation.length=== 4 ?
-                    (
-                        <>
-                        <div className='goalkeeper' key={1} >
-                            <div>
-                                <span>{awayLineUp[0].player.name}</span>
-                                <br></br>
-                                <span>{awayLineUp[0].player.number}</span>
-                            </div>
-                            
-                        </div>
-                        
-                        <div className='line' key={2}>                                    
-                            <PlayerPosition lineup={awayLineUp} grid={"2"} />                                    
-                        </div>
-                        
-                        <div className='line' key={3} >                                    
-                            <PlayerPosition lineup={awayLineUp} grid={"3"} />                                   
-                        </div>
-                        
-                        <div className='line' key={4} >                                    
-                            <PlayerPosition lineup={awayLineUp} grid={"4"} />                                   
-                        </div>
-
-                        <div className='line' key={5} >                                   
-                            <PlayerPosition lineup={awayLineUp} grid={"5"} />                                   
-                        </div>
-                        </>
-                    )
-                    :null
-                    }                 */}
+                        }                   
                     </div>
                 </>                                          
                 :

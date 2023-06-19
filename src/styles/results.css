@@ -23,7 +23,8 @@
     justify-content: center;
 }
 .fixture-teams img{
-    width:15%;
+    width:80px;
+    height: 80px;
 }
 .fixture-teams .team{
     width:25%;
