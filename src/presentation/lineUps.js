@@ -10,21 +10,19 @@ function PlayerPosition(props){
 
            const sp_lineup=lineup.filter((player)=>player.player.grid[0]===grid)
                 .sort((playerA,playerB)=>parseInt(playerB.player.grid[2]) - parseInt(playerA.player.grid[2]))
-            
-            console.log('this is line up:',sp_lineup);
-            
+                       
             return(
                 <>
-                    {
+                    {                    
                         sp_lineup.map((player,index)=>{
                             return(
-                                <div>
+                                <div key={index}>
                                 <span>{player.player.name}</span>
                                 <br/>
                                 <span>{player.player.number}</span>
                                 </div>
                             )
-                        })
+                        })                       
                     }
                 </>
             )
@@ -71,25 +69,52 @@ function LineUps(props){
                     clickedTeam==="h"?
                     <>
                         <div>Formation: {homeFormation.join('-')}</div> 
-                        <div className='pitch'>                                                                                                                                                                                                                                                                                       
-                            {homeFormation.length=== 3 ? 
-                            
-                                <>
-                                <div className='line' key={1} style={{height:'25%'}}>
-                                    <span>{homeLineUp[0].player.name}</span>
-                                    <br></br>
-                                    <span>{homeLineUp[0].player.number}</span>
+                        <div className='pitch'>
+                        <div className='goalkeeper' key={1}>
+                                    <div>
+                                        <span>{homeLineUp[0].player.name}</span>
+                                        <br></br>
+                                        <span>{homeLineUp[0].player.number}</span>
+                                    </div>
+                                    
                                 </div>
                                 
-                                <div className='line' key={2} style={{height:'25%'}}>                                    
+                                <div className='line' key={2} >                                    
                                     <PlayerPosition lineup={homeLineUp} grid={"2"} />                                    
                                 </div>
                                 
-                                <div className='line' key={3} style={{height:'25%'}}>                                    
+                                <div className='line' key={3} >                                    
                                     <PlayerPosition lineup={homeLineUp} grid={"3"} />                                   
                                 </div>
                                 
-                                <div className='line' key={4} style={{height:'25%'}}>                                    
+                                <div className='line' key={4}>                                    
+                                    <PlayerPosition lineup={homeLineUp} grid={"4"} />                                   
+                                </div>
+                                {
+                                homeFormation.length>3 ?
+                                    <div className='line' key={5} >                                   
+                                        <PlayerPosition lineup={homeLineUp} grid={"5"} />                                   
+                                    </div>:null}
+                            {/* {homeFormation.length=== 3 ? 
+                            
+                                <>
+                                <div className='goalkeeper' key={1}>
+                                    <div>
+                                    <span>{homeLineUp[0].player.name}</span>
+                                    <br></br>
+                                    <span>{homeLineUp[0].player.number}</span>
+                                    </div>
+                                </div>
+                                
+                                <div className='line' key={2} >                                    
+                                    <PlayerPosition lineup={homeLineUp} grid={"2"} />                                    
+                                </div>
+                                
+                                <div className='line' key={3}>                                    
+                                    <PlayerPosition lineup={homeLineUp} grid={"3"} />                                   
+                                </div>
+                                
+                                <div className='line' key={4}>                                    
                                     <PlayerPosition lineup={homeLineUp} grid={"4"} />                                   
                                 </div>
                                 </>
@@ -98,32 +123,35 @@ function LineUps(props){
                             homeFormation.length=== 4 ?
                             (
                                 <>
-                                <div className='line' key={1} style={{height:'20%'}}>
-                                    <span>{homeLineUp[0].player.name}</span>
-                                    <br></br>
-                                    <span>{homeLineUp[0].player.number}</span>
+                                <div className='goalkeeper' key={1}>
+                                    <div>
+                                        <span>{homeLineUp[0].player.name}</span>
+                                        <br></br>
+                                        <span>{homeLineUp[0].player.number}</span>
+                                    </div>
+                                    
                                 </div>
                                 
-                                <div className='line' key={2} style={{height:'20%'}}>                                    
+                                <div className='line' key={2} >                                    
                                     <PlayerPosition lineup={homeLineUp} grid={"2"} />                                    
                                 </div>
                                 
-                                <div className='line' key={3} style={{height:'20%'}}>                                    
+                                <div className='line' key={3} >                                    
                                     <PlayerPosition lineup={homeLineUp} grid={"3"} />                                   
                                 </div>
                                 
-                                <div className='line' key={4} style={{height:'20%'}}>                                    
+                                <div className='line' key={4}>                                    
                                     <PlayerPosition lineup={homeLineUp} grid={"4"} />                                   
                                 </div>
 
-                                <div className='line' key={5} style={{height:'20%'}}>                                   
+                                <div className='line' key={5} >                                   
                                     <PlayerPosition lineup={homeLineUp} grid={"5"} />                                   
                                 </div>
                                 </>
                             )
                             :
                             null
-                            }
+                            } */}
                         </div>
                     </>
                                                                     
@@ -133,24 +161,54 @@ function LineUps(props){
                 <>
                     <div>Formation: {awayFormation.join('-')}</div> 
                     <div className='pitch'> 
-                    {awayFormation.length=== 3 ? 
-                    (
-                        <>
-                        <div  key={1} style={{display:'block',height:'25%'}}>
-                            <span>{awayLineUp[0].player.name}</span>
-                            <br></br>
-                            <span>{awayLineUp[0].player.number}</span>
+                    <div className='goalkeeper' key={1} >
+                            <div>
+                                <span>{awayLineUp[0].player.name}</span>
+                                <br></br>
+                                <span>{awayLineUp[0].player.number}</span>
+                            </div>
+                            
                         </div>
                         
-                        <div className='line' key={2} style={{height:'25%'}}>                                    
+                        <div className='line' key={2}>                                    
                             <PlayerPosition lineup={awayLineUp} grid={"2"} />                                    
                         </div>
                         
-                        <div className='line' key={3} style={{height:'25%'}}>                                    
+                        <div className='line' key={3} >                                    
                             <PlayerPosition lineup={awayLineUp} grid={"3"} />                                   
                         </div>
                         
-                        <div className='line' key={4} style={{height:'25%'}}>                                    
+                        <div className='line' key={4} >                                    
+                            <PlayerPosition lineup={awayLineUp} grid={"4"} />                                   
+                        </div>
+                         {
+                            awayFormation.length > 3 ? 
+                                <div className='line' key={5} >                                   
+                                    <PlayerPosition lineup={awayLineUp} grid={"5"} />                                   
+                                </div>
+                            :null
+                        }
+                    {/* {awayFormation.length=== 3 ? 
+                    (
+                        <>
+                        <div className='goalkeeper' key={1} >
+                            <div>
+                                <span>{awayLineUp[0].player.name}</span>
+                                <br></br>
+                                <span>{awayLineUp[0].player.number}</span>
+                            </div>
+                            
+                        </div>
+                        
+                        <div className='line' key={2}>                                    
+                            <PlayerPosition lineup={awayLineUp} grid={"2"} />                                    
+                        </div>
+                        
+                        <div className='line' key={3} >                                    
+                            <PlayerPosition lineup={awayLineUp} grid={"3"} />                                   
+                        </div>
+                        
+                        <div className='line' key={4} >                                    
                             <PlayerPosition lineup={awayLineUp} grid={"4"} />                                   
                         </div>
                         </>
@@ -160,31 +218,34 @@ function LineUps(props){
                     awayFormation.length=== 4 ?
                     (
                         <>
-                        <div className='line' key={1} style={{height:'20%'}}>
-                            <span>{awayLineUp[0].player.name}</span>
-                            <br></br>
-                            <span>{awayLineUp[0].player.number}</span>
+                        <div className='goalkeeper' key={1} >
+                            <div>
+                                <span>{awayLineUp[0].player.name}</span>
+                                <br></br>
+                                <span>{awayLineUp[0].player.number}</span>
+                            </div>
+                            
                         </div>
                         
-                        <div className='line' key={2} style={{height:'20%'}}>                                    
+                        <div className='line' key={2}>                                    
                             <PlayerPosition lineup={awayLineUp} grid={"2"} />                                    
                         </div>
                         
-                        <div className='line' key={3} style={{height:'20%'}}>                                    
+                        <div className='line' key={3} >                                    
                             <PlayerPosition lineup={awayLineUp} grid={"3"} />                                   
                         </div>
                         
-                        <div className='line' key={4} style={{height:'20%'}}>                                    
+                        <div className='line' key={4} >                                    
                             <PlayerPosition lineup={awayLineUp} grid={"4"} />                                   
                         </div>
 
-                        <div className='line' key={5} style={{height:'20%'}}>                                   
+                        <div className='line' key={5} >                                   
                             <PlayerPosition lineup={awayLineUp} grid={"5"} />                                   
                         </div>
                         </>
                     )
                     :null
-                    }                
+                    }                 */}
                     </div>
                 </>                                          
                 :
