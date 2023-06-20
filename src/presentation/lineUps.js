@@ -21,6 +21,7 @@ function PlayerPosition(props){
                                 <span>{player.player.name}</span>
                                 <br/>
                                 <span>{player.player.number}</span>
+                                <span>{player.statistics[0].games.rating}</span>
                                 </div>
                             )
                         })                       
@@ -51,21 +52,33 @@ function LineUps(props){
             setHomeTeam(result.data.response[0].team.name);
             setAwayLineUp(result.data.response[1].startXI);
             setAwayFormation(Array.from(result.data.response[1].formation.replaceAll('-','')));
-            setAwayTeam(result.data.response[1].team.name);
+            setAwayTeam(result.data.response[1].team.name);                                    
+        })        
 
-            getPlayers(fixtureId).then((result)=>{
-                setHomePlayers(result.data.response[0].players);
-                setAwayPlayers(result.data.response[1].players);
-            });  
-        })
+        getPlayers(fixtureId).then((result)=>{
+            setHomePlayers(result.data.response[0].players);
+            setAwayPlayers(result.data.response[1].players);
+        });       
+
     },[fixtureId]);
 
-    useEffect(()=>{ // call home players' statistics:
-            
-    },[fixtureId])
+    homeLineUp.forEach((player,index)=>{
+        if(player.player.id===homePlayers[index].player.id)
+        {player.statistics=homePlayers[index].statistics}    
+    })
 
-    console.log('Home start:',homePlayers);
-    console.log('Away start:',awayPlayers);                   
+    awayLineUp.forEach((player,index)=>{
+        if(player.player.id===awayPlayers[index].player.id)
+        {player.statistics=awayPlayers[index].statistics}    
+    })
+   
+
+    console.log('Home players:',homePlayers);
+    console.log('Away lineup:',homeLineUp); 
+
+    
+
+                      
     
     return(    
         <div>                   
