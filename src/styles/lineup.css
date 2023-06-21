@@ -26,31 +26,38 @@
 .player-card{
     position: relative;
     display: block;
+    width:20%;
     text-align: center;
 }
 .player-name{
     position: relative;
-    top:-5%;
-    margin:auto;
+    top:-15%;
+    margin:auto;  
+    border-radius: 10px;  
+    text-align: center;
+    background-color: white;
 }
 .player-number{
     position: relative;
     border-radius: 50%;
-    top:-5%;
+    top:-15%;
     background-color: white;
     width:25%;
-    margin: auto;
+    margin-left: 10%;
     text-align: center;
+    border-color: black;
 }
 .player-rating{
     position: relative;
     border-radius: 50%;
+    top:10%;
     background-color: white;
     width:25%;
-    margin: auto;
+    margin-left: 10%;
     text-align: center;
 }
 .goalkeeper{
+  
     height: 20%;
     /* padding:10% 0;     */
     text-align: center;;
