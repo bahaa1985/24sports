@@ -18,10 +18,14 @@ function PlayerPosition(props){
                         sp_lineup.map((player,index)=>{
                             return(
                                 <div key={index}>
-                                <span>{player.player.name}</span>
-                                <br/>
-                                <span>{player.player.number}</span>
-                                <span>{player.statistics[0].games.rating}</span>
+                                    <span>{player.statistics[0].games.rating}</span>
+                                    <br/>
+                                    <img className='player-photo' src={player.player.photo}></img>
+                                    <br/>
+                                    <span>{player.player.name}</span>
+                                    <br/>
+                                    <span>{player.player.number}</span>
+                                    <br/>                                
                                 </div>
                             )
                         })                       
@@ -58,23 +62,34 @@ function LineUps(props){
         getPlayers(fixtureId).then((result)=>{
             setHomePlayers(result.data.response[0].players);
             setAwayPlayers(result.data.response[1].players);
-        });       
+        });   
+        
 
     },[fixtureId]);
 
-    homeLineUp.forEach((player,index)=>{
-        if(player.player.id===homePlayers[index].player.id)
-        {player.statistics=homePlayers[index].statistics}    
+    homeLineUp.forEach((line_player,index)=>{
+        homePlayers.forEach((home_player,index)=>{
+            if(line_player.player.id===home_player.player.id)
+            {
+                line_player.player.photo=home_player.player.photo;
+                line_player.statistics=home_player.statistics;                    
+            }            
+        })           
     })
 
-    awayLineUp.forEach((player,index)=>{
-        if(player.player.id===awayPlayers[index].player.id)
-        {player.statistics=awayPlayers[index].statistics}    
-    })
+    awayLineUp.forEach((line_player,index)=>{
+        awayPlayers.forEach((away_player,index)=>{
+            if(line_player.player.id===away_player.player.id)
+            {
+                line_player.player.photo=away_player.player.photo;
+                line_player.statistics=away_player.statistics;                   
+            }                
+        }) 
+    })    
    
 
     console.log('Home players:',homePlayers);
-    console.log('Away lineup:',homeLineUp); 
+    console.log('Home lineup:',homeLineUp); 
 
     
 
