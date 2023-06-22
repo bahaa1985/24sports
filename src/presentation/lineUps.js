@@ -3,6 +3,7 @@ import { useState,useEffect } from 'react'
 import getLinesUps from '../api/getLinesUps'
 import getPlayers from '../api/getPlayers';
 import '../styles/lineup.css';
+import goal from '../images/goal.png'
 
 
 function PlayerPosition(props){
@@ -10,37 +11,30 @@ function PlayerPosition(props){
            const grid=props.grid.toString(); 
    
            const sp_lineup=lineup.filter((player)=>player.player.grid[0]===grid)
-                .sort((playerA,playerB)=>parseInt(playerB.player.grid[2]) - parseInt(playerA.player.grid[2]))
-            
-            let style_width='';
-            
-            if(sp_lineup.length<=2){
-                style_width='25%'
-            }
-            else if(sp_lineup.length===3){
-                style_width='33%'
-            }
-            else if(sp_lineup.length===4){
-                style_width='25%';
-            }
-            else if(sp_lineup.length===5){
-                style_width='20%';
-            }
-
+                .sort((playerA,playerB)=>parseInt(playerB.player.grid[2]) - parseInt(playerA.player.grid[2]))                      
+                       
+            let ratingColor="";
             return(
                 <>
                     {                    
                         sp_lineup.map((player,index)=>{
+                           
                             return(
-                                <div key={index} className='player-card' >
-                                    <div className="player-rating">{player.statistics[0].games.rating}</div>
-                                   
-                                    <img className='player-photo' src={player.player.photo}></img>
-                                    
-                                    <div className='player-number'>{player.player.number}</div>
+                            <div key={index} className='player-card' >                                                                                                                                                  
+                                <div className="player-rating" style={{ backgroundColor:player.statistics[0].games.ratingColor}}>
+                                    {player.statistics[0].games.rating}
+                                </div>                                
+                                    {
+                                        player.statistics[0].goals.total > 0 ? 
+                                            <img className='player-action' src={goal}></img>
+                                        :null
+                                    }                                
+                                <img className='player-photo' src={player.player.photo}></img>
+                                
+                                <div className='player-number'>{player.player.number}</div>
 
-                                    <div className='player-name'>{player.player.name}</div>                                                                                                                                        
-                                </div>
+                                <div className='player-name'>{player.player.name}</div>                                                                                                                                        
+                            </div>
                             )
                         })                       
                     }
@@ -81,22 +75,38 @@ function LineUps(props){
 
     },[fixtureId]);
 
-    homeLineUp.forEach((line_player,index)=>{
+    homeLineUp.forEach((player,index)=>{
         homePlayers.forEach((home_player,index)=>{
-            if(line_player.player.id===home_player.player.id)
+            if(player.player.id===home_player.player.id)
             {
-                line_player.player.photo=home_player.player.photo;
-                line_player.statistics=home_player.statistics;                    
+                player.player.photo=home_player.player.photo;
+                player.statistics=home_player.statistics; 
+                if(player.statistics[0].games.rating>=0 && player.statistics[0].games.rating<5) 
+                    {player.statistics[0].games.ratingColor='red'}
+                else if(player.statistics[0].games.rating>=5 && player.statistics[0].games.rating<7)
+                    {player.statistics[0].games.ratingColor='orange'}
+                else if(player.statistics[0].games.rating>=7 && player.statistics[0].games.rating<9)
+                    {player.statistics[0].games.ratingColor='green'}
+                else if(player.statistics[0].games.rating>=9)
+                    {player.statistics[0].games.ratingColor='blue'}
             }            
         })           
     })
 
-    awayLineUp.forEach((line_player,index)=>{
+    awayLineUp.forEach((player,index)=>{
         awayPlayers.forEach((away_player,index)=>{
-            if(line_player.player.id===away_player.player.id)
+            if(player.player.id===away_player.player.id)
             {
-                line_player.player.photo=away_player.player.photo;
-                line_player.statistics=away_player.statistics;                   
+                player.player.photo=away_player.player.photo;
+                player.statistics=away_player.statistics;
+                if(player.statistics[0].games.rating>=0 && player.statistics[0].games.rating<5) 
+                    {player.statistics[0].games.ratingColor='red'}
+                else if(player.statistics[0].games.rating>=5 && player.statistics[0].games.rating<7)
+                    {player.statistics[0].games.ratingColor='orange'}
+                else if(player.statistics[0].games.rating>=7 && player.statistics[0].games.rating<9)
+                    {player.statistics[0].games.ratingColor='green'}
+                else if(player.statistics[0].games.rating>=9)
+                    {player.statistics[0].games.ratingColor='blue'}                     
             }                
         }) 
     })    
@@ -116,18 +126,8 @@ function LineUps(props){
                     <>
                         <div>Formation: {homeFormation.join('-')}</div> 
                         <div className='pitch'>
-                            <div className='line' key={1} >   
-                                <div className='player-card' style={{width:'25%'}} key={1}>
-                                   
-                                        <div className='player-rating'>{homeLineUp[0].statistics[0].games.rating}</div>
-                                        
-                                        <img src={homeLineUp[0].player.photo} className='player-photo'></img>
-                                                                                                                    
-                                        <div className='player-number'>{homeLineUp[0].player.number}</div>
-                                        
-                                        <div className='player-name'>{homeLineUp[0].player.name}</div>
-                                
-                                </div>
+                            <div className='line' key={1} >                                   
+                               <PlayerPosition lineup={homeLineUp}  grid={"1"}/>
                             </div>
                             
                             <div className='line' key={2} >                                    
@@ -157,15 +157,7 @@ function LineUps(props){
                     <div>Formation: {awayFormation.join('-')}</div> 
                     <div className='pitch'> 
                         <div className='line' key={1} > 
-                            <div className='player-card' style={{width:'25%'}} key={1} >
-                                <div className='player-rating'>{awayLineUp[0].statistics[0].games.rating}</div>                            
-                                
-                                <img src={awayLineUp[0].player.photo} className='player-photo'></img>                            
-                                                        
-                                <div className='player-number'>{awayLineUp[0].player.number}</div>                           
-
-                                <div className='player-name'>{awayLineUp[0].player.name}</div>
-                            </div>
+                            <PlayerPosition lineup={awayLineUp}  grid={"1"}/>
                         </div>
                         
                         <div className='line' key={2}>                                    
