@@ -29,42 +29,69 @@
     width:20%;
     text-align: center;
 }
+
+
+.player-rating{
+    position: absolute;
+    border-radius: 50%;
+    top:10%;
+    left: 0;
+    width: 1.4em;
+    height: 1.4em;
+    height:max-content;    
+    color:white;
+    text-align: center;
+    padding: 4px;
+    z-index:2;
+}
+.player-action{
+    position: absolute;
+    border-radius: 50%;
+    top:10%;
+    width:30%;
+    height:max-content;
+    left: 75%; 
+    z-index:2;   
+}
+.player-photo{
+    position: absolute;
+    top:15%;
+    left:50%;
+    transform: translateX(-50%);
+    width:50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.player-info{
+    position:absolute;
+    top:55%;
+    display:flex;
+    justify-content:flex-start;
+    width:100%;
+}
 .player-name{
-    position: relative;
-    top:-15%;
-    margin:auto;  
+    position: absolute;
+    top:55%;
+    left:25px;   
     border-radius: 10px;  
     text-align: center;
     background-color: white;
+    font-size: 14px;
+    padding: 4px;
 }
 .player-number{
-    position: relative;
+    position: absolute;
+    top:55%;
+    left:0px; 
     border-radius: 50%;
-    top:-15%;
     background-color: white;
-    width:30%;
-    height:max-content;
-    margin-left: 5%;
+    width: 1.2em;
+    height: 1.2em;
+    height:max-content;  
     text-align: center;
     border-color: black;
-}
-.player-rating{
-    position: relative;
-    border-radius: 50%;
-    top:10%;
-    width:30%;
-    height:max-content;
-    margin-left: 5%;
-    color:white;
-    text-align: center;
-}
-.player-action{
-    position: relative;
-    border-radius: 50%;
-    top:10%;
-    width:30%;
-    height:max-content;
-    margin-left: 55%;    
+    padding: 4px;
 }
 .goalkeeper{
   
@@ -75,8 +102,23 @@
 .goalkeeper div{
     margin-top: 5%;
 }
-.player-photo{
-    width:50px;
-    height: 50px;
-    border-radius: 50%;
+
+@media screen and (max-width: 650px)
+{
+    /* .pitch{
+        transform: rotate(270deg);
+    }
+    .player-card{
+        transform: rotate(90deg);
+    }
+    .player-card{
+        width:25%;
+    }
+    .player-rating{
+        left:0;
+    } */
+    .line{
+        justify-content: space-between;
+    }
+    
 }

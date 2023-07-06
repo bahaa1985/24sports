@@ -13,27 +13,38 @@ function PlayerPosition(props){
            const sp_lineup=lineup.filter((player)=>player.player.grid[0]===grid)
                 .sort((playerA,playerB)=>parseInt(playerB.player.grid[2]) - parseInt(playerA.player.grid[2]))                      
                        
-            let ratingColor="";
+            let playerNameArr=[]
             return(
                 <>
                     {                    
                         sp_lineup.map((player,index)=>{
-                           
+                            playerNameArr=player.player.name.split(' ');
                             return(
                             <div key={index} className='player-card' >                                                                                                                                                  
-                                <div className="player-rating" style={{ backgroundColor:player.statistics[0].games.ratingColor}}>
+                                <span className="player-rating" style={{ backgroundColor:player.statistics[0].games.ratingColor}}>
                                     {player.statistics[0].games.rating}
-                                </div>                                
+                                </span>                                
                                     {
+                                        
                                         player.statistics[0].goals.total > 0 ? 
                                             <img className='player-action' src={goal}></img>
                                         :null
-                                    }                                
+                                    }
+                                                                
                                 <img className='player-photo' src={player.player.photo}></img>
-                                
-                                <div className='player-number'>{player.player.number}</div>
 
-                                <div className='player-name'>{player.player.name}</div>                                                                                                                                        
+                                <span className='player-number'>{player.player.number}</span>
+                                    <span className='player-name'>
+                                        {
+                                            playerNameArr.length> 1 ?
+                                            playerNameArr.slice(1) :
+                                            playerNameArr[0]
+                                        }
+                                    </span> 
+                                {/* <div className='player-info'>
+                                    
+                                </div>                                 */}
+                                                                                                                                                                      
                             </div>
                             )
                         })                       
