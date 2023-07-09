@@ -24,13 +24,26 @@ function Results(props){
         });
     },[league,season])
             
-    const groupedResults=results.reduce((group,elem)=>{            
-        const date= new Date(elem.fixture.date).toDateString()  
-        if(group[date]==null) group[date]=[]
-        group[date].push(elem)
+    const groupedResults=results.reduce((group,elem)=>{
+        const gw=elem.league.round;            
+        // const date= new Date(elem.fixture.date).toDateString()  
+        if(group[gw]==null) 
+        {
+            group[gw]=[]
+        }
+        group[gw].push(elem)
         return group
     },{})
 
+    // const groupedGWs=groupedResults.reduce((group,elem)=>{
+    //     const gw=elem.league.round;
+    //     if(group[gw]==null){
+    //         group[gw]=[]
+    //     }
+    //     group[gw].push(elem)
+    //     return group;
+    // })
+    console.log("GWs: ",groupedResults)
     let i=0;
     return(
         <div>
@@ -39,7 +52,7 @@ function Results(props){
                               
                 return(
                     <div>                
-                        <div key={day_index} className="fixture-date"> {elem} </div>                                     
+                        <div key={day_index} className="fixture-date">Game Week {elem[elem.length-1]} </div>                                     
                         {groupedResults[elem].map((elem,fixture_index)=>{
                             return(
                                 <div key={fixture_index}>
@@ -51,7 +64,7 @@ function Results(props){
                                             <span className='team'>{elem.teams.away.name}</span>
                                             <img src={elem.teams.away.logo}></img>                                                                                                                                                       
                                     </div>                                     
-                                    <div>
+                                    <div className='fixture-details'>
                                         <span onClick={()=>{setTab('Events');
                                                             setFixture(elem.fixture.id);
                                                             setTeams([elem.teams.home.id,elem.teams.away.id]);}}>Events</span>

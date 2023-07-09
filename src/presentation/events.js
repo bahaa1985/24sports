@@ -31,8 +31,7 @@ function Events(props){
         if(group[TIME]==null) group[TIME]=[];
         group[TIME].push(elem);
         return group;
-    },[])
-    // console.log('grouped events: ',GROUPED_EVENTS)
+    },[])   
 
     const home_events_div=(player,assist,type,detail,index)=>{
         

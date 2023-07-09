@@ -36,8 +36,10 @@
     border: 1px solid black;
     margin-left:2px;
     padding: 2px;
-    box-sizing: border-box;
-    
+    box-sizing: border-box;    
+}
+.fixture-details span{
+    cursor: pointer;
 }
 .fixture img{
     width:40px;
