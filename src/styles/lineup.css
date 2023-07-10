@@ -1,15 +1,4 @@
-.pitch{
-    background-image:url('/src/images/football_pitch.jpg');
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-    width:50%; 
-    height: 600px;      
-    margin:auto; 
-    display:flex;
-    flex-direction: column;   
-    align-content: space-between;    
-}
+
 .line{
     position:relative;
     display: flex;
@@ -25,19 +14,21 @@
 }
 .scoresheet{
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     width:90%;
     margin:auto;
 }
-.coach{
-    
-    display: block;
-    border: 0.5px solid black;
-    margin:5px auto;
-}
-.coach img{
-    width:60px;
-    height: 60px;
+.pitch{
+    background-image:url('/src/images/football_pitch.jpg');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    width:60%; 
+    height: 600px;      
+    margin:auto; 
+    display:flex;
+    flex-direction: column;   
+    align-content: space-between;    
 }
 .player-card{
     position: relative;
@@ -96,12 +87,34 @@
     background-color: white;
     width: 1.2em; 
 }  
-.substitues{
-    display: block;
+.bench{
+    /* display: flex;
+    justify-content: space-around; */
+}
+.coach{     
     border: 0.5px solid black;
-    margin:5px auto;
+    padding :5px auto;
+}
+.coach span{
+    width:33%;
+}
+.substitues{
+    /* display: flex; */
+    border: 0.5px solid black;
+    margin:5px auto;    
+}
+.substitues div{
+    margin:4px auto;
+    text-align: left;
+}
+.substitues span{
+    border:none;    
 }
 
+.coach img{
+    width:60px;
+    height: 60px;
+}
 @media screen and (max-width: 650px)
 {
     .scoresheet{

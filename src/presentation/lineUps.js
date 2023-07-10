@@ -4,6 +4,8 @@ import getLinesUps from '../api/getLinesUps'
 import getPlayers from '../api/getPlayers';
 import '../styles/lineup.css';
 import goal from '../images/goal.png'
+import red from '../images/red.png'
+import yellow from '../images/yellow.png'
 
 
 function PlayerPosition(props){
@@ -12,7 +14,7 @@ function PlayerPosition(props){
    
            const sp_lineup=lineup.filter((player)=>player.player.grid[0]===grid)
                 .sort((playerA,playerB)=>parseInt(playerB.player.grid[2]) - parseInt(playerA.player.grid[2]))                      
-                       
+             console.log("sp",sp_lineup)          
             let playerNameArr=[],playerName="";           
             return(
                 <>
@@ -28,8 +30,12 @@ function PlayerPosition(props){
                                 </span>                                
                                     {                                        
                                         player.statistics[0].goals.total > 0 ? 
-                                            <img className='player-action' src={goal}></img>
-                                        :null
+                                            <img className='player-action' src={goal}></img>:
+                                        player.statistics[0].cards.red > 0 ?
+                                            <img className='player-action' src={red}></img>:
+                                        player.statistics[0].cards.yellow > 0 ?
+                                        <img className='player-action' src={yellow}></img>:
+                                        null
                                     }
                                                                 
                                 <img className='player-photo' src={player.player.photo}></img>
@@ -136,20 +142,15 @@ function LineUps(props){
     return(    
         <div>                   
             <div style={{display:'flex',justifyContent:'center',width:'50%',margin:'auto'}}>
-                <button onClick={()=>setClickedTeam("h")}>{homeTeam}</button>
-                <button onClick={()=>setClickedTeam("a")}>{awayTeam}</button>
+                <button onClick={()=>setClickedTeam("home")}>{homeTeam}</button>
+                <button onClick={()=>setClickedTeam("away")}>{awayTeam}</button>
             </div>
            
                 {                    
-                    clickedTeam==="h"?
+                    clickedTeam==="home"?
                     <>
                         <div>Formation: {homeFormation.join('-')}</div>
-                        <div className='scoresheet'>
-                            <div className='coach'>
-                                <img src={homeCoach.photo}/>
-                                <br/>
-                                <span>Coach: {homeCoach.name}</span>
-                            </div>
+                        <div className='scoresheet'>                            
                             <div className='pitch'>
                                 <div className='line' key={1} >                                   
                                 <PlayerPosition lineup={homeLineUp}  grid={"1"}/>
@@ -173,7 +174,13 @@ function LineUps(props){
                                     </div>:null
                                 }                            
                             </div>
-                            <div className='substitues'>
+                            <div className='bench'>
+                                <div className='coach'>
+                                    <img src={homeCoach.photo}/>                                    
+                                    <span>Coach: {homeCoach.name}</span>
+                                </div>
+                                {/*  */}
+                                <div className='substitues'>
                                 {
                                     homeSubstitutes.map((sub)=>{
                                         {
@@ -189,45 +196,91 @@ function LineUps(props){
                                                     playerNameArr.slice(1) :
                                                     playerNameArr[0]
                                                 }
-                                                </span>                                                                                             
+                                                </span> 
+                                                <span>{sub.player.pos}</span>                                                                                            
+                                                <span>
+                                                    {
+
+                                                    }
+                                                </span>
                                             </div>
                                         )
                                     })
                                 }
                             </div>
+                            </div>
+                           
                         </div> 
                         
                     </>
                                                                     
                 :
 
-                clickedTeam==="a"? 
+                clickedTeam==="away"? 
                 <>
                     <div>Formation: {awayFormation.join('-')}</div> 
-                    <div className='pitch'> 
-                        <div className='line' key={1} > 
-                            <PlayerPosition lineup={awayLineUp}  grid={"1"}/>
+                    <div className='scoresheet'>
+                        <div className='pitch'> 
+                            <div className='line' key={1} > 
+                                <PlayerPosition lineup={awayLineUp}  grid={"1"}/>
+                            </div>
+                            
+                            <div className='line' key={2}>                                    
+                                <PlayerPosition lineup={awayLineUp} grid={"2"} />                                    
+                            </div>
+                            
+                            <div className='line' key={3} >                                    
+                                <PlayerPosition lineup={awayLineUp} grid={"3"} />                                   
+                            </div>
+                            
+                            <div className='line' key={4} >                                    
+                                <PlayerPosition lineup={awayLineUp} grid={"4"} />                                   
+                            </div>
+                            {
+                                awayFormation.length > 3 ? 
+                                    <div className='line' key={5} >                                   
+                                        <PlayerPosition lineup={awayLineUp} grid={"5"} />                                   
+                                    </div>
+                                :null
+                            }                   
                         </div>
-                        
-                        <div className='line' key={2}>                                    
-                            <PlayerPosition lineup={awayLineUp} grid={"2"} />                                    
-                        </div>
-                        
-                        <div className='line' key={3} >                                    
-                            <PlayerPosition lineup={awayLineUp} grid={"3"} />                                   
-                        </div>
-                        
-                        <div className='line' key={4} >                                    
-                            <PlayerPosition lineup={awayLineUp} grid={"4"} />                                   
-                        </div>
-                         {
-                            awayFormation.length > 3 ? 
-                                <div className='line' key={5} >                                   
-                                    <PlayerPosition lineup={awayLineUp} grid={"5"} />                                   
+                        <div className='bench'>
+                                <div className='coach'>
+                                    <img src={awayCoach.photo}/>                                    
+                                    <span>Coach: {awayCoach.name}</span>
                                 </div>
-                            :null
-                        }                   
+                                {/*  */}
+                                <div className='substitues'>
+                                {
+                                    awaySubstitutes.map((sub)=>{
+                                        {
+                                            playerNameArr=sub.player.name.split(' ');
+                                            playerNameArr.length> 1 ? playerName= playerNameArr.slice(1) : playerName= playerNameArr[0];
+                                        }
+                                        return(
+                                            <div>
+                                                <span className='player-number'>{sub.player.number}</span>
+                                                <span className='player-name'>
+                                                {
+                                                    playerNameArr.length> 1 ?
+                                                    playerNameArr.slice(1) :
+                                                    playerNameArr[0]
+                                                }
+                                                </span> 
+                                                <span>{sub.player.pos}</span>                                                                                            
+                                                <span>
+                                                    {
+
+                                                    }
+                                                </span>
+                                            </div>
+                                        )
+                                    })
+                                }
+                            </div>
+                            </div>
                     </div>
+                    
                 </>                                          
                 :
                 null  
