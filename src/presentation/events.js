@@ -1,4 +1,3 @@
-import React, { Fragment } from "react";
 import { useState,useEffect,useRef } from "react";
 import getEvents from '../api/getEvents'
 import '../styles/events.css'
@@ -38,25 +37,25 @@ function Events(props){
     return(
             <div key={index} className="events-home">           
                 <div>{
-                    type==='Goal'&& detail=='Normal Goal' ? 
-                    <img src={goal}></img>:
-                    type==='Goal'&& detail=='Penalty' ?
-                    <img src={penalty}></img>:
-                    type==='Goal'&& detail== 'Own Goal' ?
-                    <img src={own_goal}></img>:
-                    type==='Goal'&& detail=='Missed penalty' ?
-                    <img src={missed_penalty}></img>:
-                    type==='Card'&& detail=='Yellow Card' ?
-                    <img src={yellow_card}></img>:
-                    type==='Card'&& detail=='Red Card' ?
-                    <img src={red_card}></img>:
+                    type==='Goal'&& detail==='Normal Goal' ? 
+                    <img alt='' src={goal}></img>:
+                    type==='Goal'&& detail==='Penalty' ?
+                    <img alt='' src={penalty}></img>:
+                    type==='Goal'&& detail=== 'Own Goal' ?
+                    <img alt='' src={own_goal}></img>:
+                    type==='Goal'&& detail==='Missed penalty' ?
+                    <img alt='' src={missed_penalty}></img>:
+                    type==='Card'&& detail==='Yellow Card' ?
+                    <img alt='' src={yellow_card}></img>:
+                    type==='Card'&& detail==='Red Card' ?
+                    <img alt='' src={red_card}></img>:
                     type==='subst'?
-                    <img src={substitute}></img>:                    
+                    <img alt='' src={substitute}></img>:                    
                     type==='Var'?
-                    <div>
-                        <img src={VAR}></img>
-                        <div>{detail}</div>
-                    </div>
+                        <div>
+                            <img alt='' src={VAR}></img>
+                            <div>{detail}</div>
+                        </div>
                     :null
                 }
                 </div>
@@ -79,27 +78,27 @@ function Events(props){
             
                 <div>
                     {
-                        type==='Goal'&& detail=='Normal Goal' ? 
-                        <img src={goal}></img>:
-                        type==='Goal'&& detail=='Penalty' ?
-                        <img src={penalty}></img>:
-                        type==='Goal'&& detail== 'Own Goal' ?
-                        <img src={own_goal}></img>:
-                        type==='Goal'&& detail=='Missed Penalty' ?
-                        <img src={missed_penalty}></img>:
-                        type==='Card'&& detail=='Yellow Card' ?
-                        <img src={yellow_card}></img>:
-                        type==='Card'&& detail=='Red card' ?
-                        <img src={red_card}></img>:
+                        type==='Goal'&& detail==='Normal Goal' ? 
+                        <img alt=''src={goal}></img>:
+                        type==='Goal'&& detail==='Penalty' ?
+                        <img alt='' src={penalty}></img>:
+                        type==='Goal'&& detail=== 'Own Goal' ?
+                        <img alt='' src={own_goal}></img>:
+                        type==='Goal'&& detail==='Missed Penalty' ?
+                        <img alt=''src={missed_penalty}></img>:
+                        type==='Card'&& detail==='Yellow Card' ?
+                        <img alt=''src={yellow_card}></img>:
+                        type==='Card'&& detail==='Red card' ?
+                        <img alt=''src={red_card}></img>:
                         type==='subst'?
-                        <img src={substitute}></img>:
+                        <img alt=''src={substitute}></img>:
                         type==='Var' ?
-                        <div style={{display:'block'}}>
-                            <div>
-                            <img src={VAR} title="var icons"></img>
-                            </div>
-                            <div>{detail}</div>
-                        </div>:           
+                            <div style={{display:'block'}}>
+                                <div>
+                                 <img alt='' src={VAR} title="var icons"></img>
+                                </div>
+                                <div>{detail}</div>
+                            </div>:           
                         null
                     }
                 </div> 
@@ -113,8 +112,7 @@ function Events(props){
         <div className='events' >          
             {                
                 GROUPED_EVENTS.map((event,index)=>{                    
-                    return(
-                       
+                    return(                       
                             <div ref={event_div} key={index} style={{display:'flex',justifyContent:'center',margin:'5px auto',width:'100%'}}>
                                 {
                                     <div style={{width:'45%',float:'right'}}>

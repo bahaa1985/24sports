@@ -1,7 +1,8 @@
-import React,{ ReactDOM } from 'react'
+import React from 'react'
 import { useState,useEffect } from 'react'
 import getLinesUps from '../api/getLinesUps'
 import getPlayers from '../api/getPlayers';
+import getEvents from '../api/getEvents';
 import '../styles/lineup.css';
 import goal from '../images/goal.png'
 import red from '../images/red.png'
@@ -30,11 +31,12 @@ function PlayerPosition(props){
                                 </span>                                
                                     {                                        
                                         player.statistics[0].goals.total > 0 ? 
-                                            <img className='player-action' src={goal}></img>:
+                                            <img  alt='' className='player-action' src={goal}></img>:
                                         player.statistics[0].cards.red > 0 ?
-                                            <img className='player-action' src={red}></img>:
+                                            <img alt='' className='player-action' src={red}></img>:
                                         player.statistics[0].cards.yellow > 0 ?
-                                        <img className='player-action' src={yellow}></img>:
+                                        <img alt='' className='player-action' src={yellow}></img>:
+                                        // player.statistics[0].
                                         null
                                     }
                                                                 
@@ -73,8 +75,9 @@ function LineUps(props){
     const [awayPlayers,setAwayPlayers] =useState([]);
     const [homeCoach,setHomeCoash]=useState({})
     const [awayCoach,setAwayCoash]=useState({})
-    const [homeSubstitutes,setHomeSubstitutes]=useState([])
-    const [awaySubstitutes,setAwaySubstitutes]=useState([])
+    const [homeSub,setHomeSub]=useState([])
+    const [awaySub,setAwaySub]=useState([])
+    // const [homeSub]
     let [clickedTeam,setClickedTeam]=useState("");   
     
     useEffect(()=>{ // call formation and line up players:
@@ -87,8 +90,8 @@ function LineUps(props){
             setAwayTeam(result.data.response[1].team.name);
             setHomeCoash(result.data.response[0].coach)                                    
             setAwayCoash(result.data.response[1].coach)  
-            setHomeSubstitutes(result.data.response[0].substitutes) 
-            setAwaySubstitutes(result.data.response[1].substitutes) 
+            setHomeSub(result.data.response[0].substitutes) 
+            setAwaySub(result.data.response[1].substitutes) 
         })        
 
         getPlayers(fixtureId).then((result)=>{
@@ -135,9 +138,19 @@ function LineUps(props){
         }) 
     })    
 
-    console.log('Home:',homeSubstitutes);
+    //get events:
+   useEffect(()=>{
+        const homeEvents= getEvents(fixtureId).then((result)=>{
+            return result.data.response[0].filter(event=>event.team.id===homeId)   
+        })
+        const awayEvents= getEvents(fixtureId).then((result)=>{
+            return result.data.response[0].filter(event=>event.team.id===awayId)   
+        })
+   },[])
+    console.log('Home:',homeSub);
     console.log('Away:',awayCoach);
 
+    // eslint-disable-next-line no-unused-vars
     let playerNameArr=[],playerName="";  
     return(    
         <div>                   
@@ -176,13 +189,14 @@ function LineUps(props){
                             </div>
                             <div className='bench'>
                                 <div className='coach'>
-                                    <img src={homeCoach.photo}/>                                    
+                                    <img alt='' src={homeCoach.photo}/>                                    
                                     <span>Coach: {homeCoach.name}</span>
                                 </div>
                                 {/*  */}
                                 <div className='substitues'>
                                 {
-                                    homeSubstitutes.map((sub)=>{
+                                    homeSub.map((sub)=>{
+                                        // eslint-disable-next-line no-lone-blocks
                                         {
                                             playerNameArr=sub.player.name.split(' ');
                                             playerNameArr.length> 1 ? playerName= playerNameArr.slice(1) : playerName= playerNameArr[0];
@@ -246,17 +260,16 @@ function LineUps(props){
                         </div>
                         <div className='bench'>
                                 <div className='coach'>
-                                    <img src={awayCoach.photo}/>                                    
+                                    <img alt='' src={awayCoach.photo}/>                                    
                                     <span>Coach: {awayCoach.name}</span>
                                 </div>
                                 {/*  */}
                                 <div className='substitues'>
                                 {
-                                    awaySubstitutes.map((sub)=>{
-                                        {
-                                            playerNameArr=sub.player.name.split(' ');
-                                            playerNameArr.length> 1 ? playerName= playerNameArr.slice(1) : playerName= playerNameArr[0];
-                                        }
+                                    awaySub.map((sub)=>{                                        
+                                        playerNameArr=sub.player.name.split(' ')
+                                        playerNameArr.length> 1 ? playerName= playerNameArr.slice(1) : playerName= playerNameArr[0]                                        
+                                        
                                         return(
                                             <div>
                                                 <span className='player-number'>{sub.player.number}</span>
