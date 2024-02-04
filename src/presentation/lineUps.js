@@ -40,7 +40,7 @@ function PlayerPosition(props){
                                         null
                                     }
                                                                 
-                                <img className='player-photo' src={player.player.photo}></img>
+                                <img className='player-photo' src={player.player.photo} alt=""></img>
                                 <div className='player-info'>
                                     <span className='player-number'>{player.player.number}</span>
                                     <span className='player-name'>
@@ -76,7 +76,9 @@ function LineUps(props){
     const [homeCoach,setHomeCoash]=useState({})
     const [awayCoach,setAwayCoash]=useState({})
     const [homeSub,setHomeSub]=useState([])
-    const [awaySub,setAwaySub]=useState([])
+    const [awaySub,setAwaySub]=useState([]);
+    const [homeEvents,setHomeEvents]=useState([]);
+    const [awayEvents,setAwayEvents]=useState([]);
     // const [homeSub]
     let [clickedTeam,setClickedTeam]=useState("");   
     
@@ -140,17 +142,22 @@ function LineUps(props){
 
     //get events:
    useEffect(()=>{
-        const homeEvents= getEvents(fixtureId).then((result)=>{
-            return result.data.response[0].filter(event=>event.team.id===homeId)   
+       getEvents(fixtureId).then((result)=>{
+            setHomeEvents(result.data.response.filter(event=>event.team.id===homeId))   
         })
-        const awayEvents= getEvents(fixtureId).then((result)=>{
-            return result.data.response[0].filter(event=>event.team.id===awayId)   
+        getEvents(fixtureId).then((result)=>{
+            setAwayEvents(result.data.response.filter(event=>event.team.id===awayId))   
         })
-   },[])
-    console.log('Home:',homeSub);
-    console.log('Away:',awayCoach);
+       
+   },[fixtureId])
 
+    console.log("homeEvents:",homeEvents);
+console.log("awayEvents:",awayEvents);
+    // console.log('Home:',homeSub);
+    // console.log('Away:',awayCoach);
     // eslint-disable-next-line no-unused-vars
+
+    
     let playerNameArr=[],playerName="";  
     return(    
         <div>                   
@@ -275,14 +282,17 @@ function LineUps(props){
                                                 <span className='player-number'>{sub.player.number}</span>
                                                 <span className='player-name'>
                                                 {
-                                                    playerNameArr.length> 1 ?
-                                                    playerNameArr.slice(1) :
-                                                    playerNameArr[0]
+                                                    // playerNameArr.length> 1 ?
+                                                    // playerNameArr.slice(1) :
+                                                    // playerNameArr[0]
+                                                    playerName
+                                                    // sub.player.id
                                                 }
                                                 </span> 
                                                 <span>{sub.player.pos}</span>                                                                                            
                                                 <span>
                                                     {
+                                                        //event:
 
                                                     }
                                                 </span>

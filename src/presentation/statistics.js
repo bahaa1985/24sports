@@ -4,8 +4,8 @@ import '../styles/statistics.css'
 import { useEffect,useState } from "react";
 
 function Statistics(props){
-    const home_team=props.teams[0]
-    const away_team=props.teams[1]
+    // const home_team=props.teams[0]
+    // const away_team=props.teams[1]
     const fixture=props.fixture
     const [homeStatistics,setHomeStatistics]=useState([])
     const [awayStatistics,setAwayStatistics]=useState([])
@@ -20,41 +20,43 @@ function Statistics(props){
 
     
     useEffect(()=>{
-        getStatistics(fixture,home_team).then((result)=>{
-            setHomeStatistics(result.data.response[0].statistics)
+        getStatistics(fixture).then((result)=>{
+            console.log("re",result);
+            setHomeStatistics(result.data.response[0].statistics);
+            setAwayStatistics(result.data.response[1].statistics);
         });                                      
-        console.log('home effect!')
-    },[fixture,home_team])
+        console.log(homeStatistics)
+    },[fixture])
 
-    useEffect(()=>{
-        getStatistics(fixture,away_team).then((result)=>{
-            setAwayStatistics(result.data.response[0].statistics)
-        });
-        console.log('home effect!')
-    },[fixture,away_team])
+    // useEffect(()=>{
+    //     getStatistics(fixture.then((result)=>{
+    //         setAwayStatistics(result.data.response[1].statistics)
+    //     });
+    //     console.log('home effect!')
+    // },[fixture,away_team])
   
-    let total,max,factor=0;
-    let screen_width=window.innerWidth
-    let progress_div_width=0
-    let ss='ewe'    
-    const statistics_arr=Array.from(Array(16),()=>({
-        "home":0,
-        "away":0,
-        "type":''
-    }))
+       
+
+    let statistics_arr=[];
+    for(let i=0;i<17;i++){
+        statistics_arr.push({
+            'home':0,'away':0,'type':''
+        })
+    } 
     
+    // console.log(statistics_arr)
+
+    let total=0;
 
     return(
         <section style={{width:'90%',height: 'auto',margin:'auto',textAlign: 'center'}}>                              
             {homeStatistics.map((item,index)=>{
                 statistics_arr[index].type=item.type;
                 item.value===null? statistics_arr[index].home=0 :                
-                // typeof(item.value)==="string" && item.value.includes('%')? statistics_arr[index].home=Number.parseInt(item.value) : 
                 statistics_arr[index].home=item.value;                
             })}
             {awayStatistics.map((item,index)=>{              
                 item.value===null? statistics_arr[index].away=0 :
-                // typeof(item.value)==="string" && item.value.includes('%')? statistics_arr[index].away=Number.parseInt(item.value)  : 
                 statistics_arr[index].away=item.value; 
             })}
             
