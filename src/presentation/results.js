@@ -52,7 +52,7 @@ function Results(props){
                               
                 return(
                     <div>                
-                        <div key={day_index} className="fixture-date">Game Week {elem[elem.length-1]} </div>                                     
+                        <div key={day_index} className="fixture-date">Game Week {day_index+1} </div>                                     
                         {groupedResults[elem].map((elem,fixture_index)=>{
                             return(
                                 <div key={fixture_index}>

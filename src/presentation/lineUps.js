@@ -29,7 +29,7 @@ function PlayerPosition(props){
                                 <span className="player-rating" style={{ backgroundColor:player.statistics[0].games.ratingColor}}>
                                     {player.statistics[0].games.rating}
                                 </span>                                
-                                    {                                        
+                                    {/* {                                        
                                         player.statistics[0].goals.total > 0 ? 
                                             <img  alt='' className='player-action' src={goal}></img>:
                                         player.statistics[0].cards.red > 0 ?
@@ -38,7 +38,7 @@ function PlayerPosition(props){
                                         <img alt='' className='player-action' src={yellow}></img>:
                                         // player.statistics[0].
                                         null
-                                    }
+                                    } */}
                                                                 
                                 <img className='player-photo' src={player.player.photo} alt=""></img>
                                 <div className='player-info'>
