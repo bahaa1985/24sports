@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import './App.css';
-import Results from './presentation/results'
+import Fixtures from './presentation/Fixtures'
 
 function App() {
 
@@ -19,7 +19,7 @@ function App() {
       <button onClick={()=>{setLeagueId(61);setSeason(year)}}>Liga Un</button>
      </div>
     {/* <Standings league={leagueId} season={season}/> */}
-    <Results league={leagueId} season={season}/>
+    <Fixtures league={leagueId} season={season}/>
     {/* <Statistics fixture={867946} teams={[52, 42]}/> */}
     </div>
   );

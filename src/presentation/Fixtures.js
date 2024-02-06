@@ -1,15 +1,15 @@
 import React,{ Fragment, ReactDOM } from 'react'
 import { useState,useEffect,useRef } from 'react'
-import getResults from '../api/getResults'
-import  '../styles/results.css'
-import Events from './events'
-import Statistics from './statistics'
-import LineUps from './lineUps'
+import getFixtures from '../api/getFixtures'
+import  '../styles/fixtures.css'
+import Events from './Events'
+import Statistics from './Statistics'
+import LineUps from './LineUps'
 
 
 
-function Results(props){
-    const [results,setResults]=useState([])
+function Fixtures(props){
+    const [Fixtures,setFixtures]=useState([])
     const [fixture,setFixture]=useState(0)
     const [teams,setTeams]=useState([])
     const [tab,setTab]=useState('')
@@ -19,12 +19,12 @@ function Results(props){
     const season=props.season
           
     useEffect(()=>{                                                  
-        getResults(league,season).then((result)=>{                                 
-            setResults( result.data.response )
+        getFixtures(league,season).then((result)=>{                                 
+            setFixtures( result.data.response )
         });
     },[league,season])
             
-    const groupedResults=results.reduce((group,elem)=>{
+    const groupedFixtures=Fixtures.reduce((group,elem)=>{
         const gw=elem.league.round;            
         // const date= new Date(elem.fixture.date).toDateString()  
         if(group[gw]==null) 
@@ -35,7 +35,7 @@ function Results(props){
         return group
     },{})
 
-    // const groupedGWs=groupedResults.reduce((group,elem)=>{
+    // const groupedGWs=groupedFixtures.reduce((group,elem)=>{
     //     const gw=elem.league.round;
     //     if(group[gw]==null){
     //         group[gw]=[]
@@ -43,17 +43,17 @@ function Results(props){
     //     group[gw].push(elem)
     //     return group;
     // })
-    console.log("GWs: ",groupedResults)
+    console.log("GWs: ",groupedFixtures)
     let i=0;
     return(
         <div>
             {               
-               Object.keys(groupedResults).sort((a,b)=>Date.parse(a)-Date.parse(b)).map((elem,day_index)=>{
+               Object.keys(groupedFixtures).sort((a,b)=>Date.parse(a)-Date.parse(b)).map((elem,day_index)=>{
                               
                 return(
                     <div>                
                         <div key={day_index} className="fixture-date">Game Week {day_index+1} </div>                                     
-                        {groupedResults[elem].map((elem,fixture_index)=>{
+                        {groupedFixtures[elem].map((elem,fixture_index)=>{
                             return(
                                 <div key={fixture_index}>
                                     <div className="fixture-teams" key={elem.fixture.id}>                                                                                                                      
@@ -102,4 +102,4 @@ function Results(props){
     )
 }
 
-export default Results
+export default Fixtures

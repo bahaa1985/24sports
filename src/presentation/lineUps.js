@@ -3,6 +3,7 @@ import { useState,useEffect } from 'react'
 import getLinesUps from '../api/getLinesUps'
 import getPlayers from '../api/getPlayers';
 import getEvents from '../api/getEvents';
+// import Player from './Player';
 import '../styles/lineup.css';
 import goal from '../images/goal.png'
 import red from '../images/red.png'
@@ -23,7 +24,6 @@ function PlayerPosition(props){
                         sp_lineup.map((player,index)=>{
                             playerNameArr=player.player.name.split(' ');
                             playerNameArr.length> 1 ? playerName= playerNameArr.slice(1) : playerName= playerNameArr[0];
-
                             return(
                             <div key={index} className='player-card' >                                                                                                                                                  
                                 <span className="player-rating" style={{ backgroundColor:player.statistics[0].games.ratingColor}}>
