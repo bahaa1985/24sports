@@ -9,7 +9,7 @@ function App() {
   const year=2023;
 
   return (
-    <div className="App">
+    <div >
      <div>
       <button onClick={()=>{setLeagueId(2);setSeason(year)}}>UFL</button>
       <button onClick={()=>{setLeagueId(39);setSeason(year)}}>EPL</button>
